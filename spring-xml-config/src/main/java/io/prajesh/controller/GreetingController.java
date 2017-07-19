@@ -24,6 +24,6 @@ public class GreetingController {
 
   @RequestMapping("/")
   public String message() {
-    return helloWorldService.getMessaage();
+    return helloWorldService.getMessage();
   }
 }

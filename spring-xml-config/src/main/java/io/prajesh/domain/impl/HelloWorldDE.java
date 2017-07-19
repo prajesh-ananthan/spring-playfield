@@ -6,10 +6,10 @@ import io.prajesh.domain.HelloWorld;
  * @author Prajesh Ananthan
  *         Created on 17/7/2017.
  */
-public class HelloWorldSpanish implements HelloWorld {
+public class HelloWorldDE implements HelloWorld {
 
   @Override
   public String greeting() {
-    return null;
+    return "Hello Welt!";
   }
 }

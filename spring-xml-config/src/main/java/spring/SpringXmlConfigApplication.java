@@ -8,6 +8,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ImportResource;
 
+/**
+ * Loads the appropriate bean based on the profile set in property file
+ */
 @SpringBootApplication
 @ImportResource("classpath:/spring/spring-config.xml")
 public class SpringXmlConfigApplication {
@@ -19,10 +22,10 @@ public class SpringXmlConfigApplication {
 //    HelloWorld helloWorldEn = (HelloWorld) ctx.getBean("helloWorldEn");
 //    LOG.info(helloWorldEn.greeting());
 
-//    HelloWorld helloWorldMy = (HelloWorld) ctx.getBean("helloWorldMy");
-//    LOG.info(helloWorldMy.greeting());
+    HelloWorld helloWorldMy = (HelloWorld) ctx.getBean("helloWorldMy");
+    LOG.info(helloWorldMy.greeting());
 
-    HelloWorld helloWorldImpl = (HelloWorld) ctx.getBean("helloWorldImpl");
-    LOG.info(helloWorldImpl.greeting());
+//    HelloWorld helloWorld = (HelloWorld) ctx.getBean("helloWorldImpl");
+//    LOG.info(helloWorld.greeting());
   }
 }

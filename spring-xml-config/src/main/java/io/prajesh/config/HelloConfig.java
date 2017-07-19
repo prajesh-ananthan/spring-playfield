@@ -1,6 +1,7 @@
 package io.prajesh.config;
 
 import io.prajesh.service.HelloWorldService;
+import io.prajesh.service.impl.HelloWorldServiceEN;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -22,7 +23,7 @@ public class HelloConfig {
 
   @Bean
   public HelloWorldService helloWorldService() {
-    return new HelloWorldService();
+    return new HelloWorldServiceEN();
   }
 
 //    @Bean

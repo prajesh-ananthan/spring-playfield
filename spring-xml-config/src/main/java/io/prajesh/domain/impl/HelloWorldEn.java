@@ -7,6 +7,7 @@ import io.prajesh.domain.HelloWorld;
  *         Created on 17/7/2017.
  */
 public class HelloWorldEn implements HelloWorld {
+
   @Override
   public String greeting() {
     return "Hello World!";

@@ -13,7 +13,7 @@
     <bean id="helloWorldImpl" class="io.prajesh.domain.impl.HelloWorldImpl" primary="true"/>
 
     <beans profile="english">
-        <bean id="helloWorldEn" factory-bean="helloWorldFactory" factory-method="getHelloWorldFactory">
+        <bean id="helloWorldMy" factory-bean="helloWorldFactory" factory-method="getHelloWorldFactory">
             <constructor-arg value="en"/>
         </bean>
     </beans>
