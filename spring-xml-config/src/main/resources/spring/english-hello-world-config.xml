@@ -9,13 +9,4 @@
     <property name="helloWorldEn" ref="helloWorldEn"/>
   </bean>
   <bean id="helloWorldEn" class="io.prajesh.domain.impl.HelloWorldEn"/>
-
-  <beans profile="malay">
-    <bean id="helloWorldServiceDefault" factory-bean="helloWorldFactory" factory-method="createHelloWorldService" primary="true">
-      <constructor-arg value="my"/>
-      <property name="helloWorldMy" ref="helloWorldMy"/>
-    </bean>
-    <bean id="helloWorldMy" class="io.prajesh.domain.impl.HelloWorldMy"/>
-  </beans>
-  <!--End Load by profile-->
 </beans>
