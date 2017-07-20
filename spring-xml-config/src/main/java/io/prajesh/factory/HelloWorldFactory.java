@@ -1,10 +1,10 @@
 package io.prajesh.factory;
 
-import io.prajesh.domain.HelloWorld;
-import io.prajesh.domain.impl.HelloWorldDE;
-import io.prajesh.domain.impl.HelloWorldEn;
-import io.prajesh.domain.impl.HelloWorldEs;
-import io.prajesh.domain.impl.HelloWorldMy;
+import io.prajesh.service.HelloWorldService;
+import io.prajesh.service.impl.HelloWorldServiceDE;
+import io.prajesh.service.impl.HelloWorldServiceEN;
+import io.prajesh.service.impl.HelloWorldServiceES;
+import io.prajesh.service.impl.HelloWorldServiceMY;
 
 /**
  * @author Prajesh Ananthan
@@ -17,25 +17,25 @@ public class HelloWorldFactory {
   private static final String GERMAN = "de";
   private static final String SPANISH = "es";
 
-  public HelloWorld getHelloWorldFactory(String language) {
-    HelloWorld helloWorld = null;
+  public HelloWorldService createHelloWorldService(String language) {
+    HelloWorldService helloWorldService = null;
 
     switch (language) {
       case ENGLISH:
-        helloWorld = new HelloWorldEn();
+        helloWorldService = new HelloWorldServiceEN();
         break;
       case MALAY:
-        helloWorld = new HelloWorldMy();
+        helloWorldService = new HelloWorldServiceMY();
         break;
       case GERMAN:
-        helloWorld = new HelloWorldDE();
+        helloWorldService = new HelloWorldServiceDE();
         break;
       case SPANISH:
-        helloWorld = new HelloWorldEs();
+        helloWorldService = new HelloWorldServiceES();
         break;
       default:
-        helloWorld = new HelloWorldEn();
+        helloWorldService = new HelloWorldServiceEN();
     }
-    return helloWorld;
+    return helloWorldService;
   }
 }

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+  <bean id="helloWorldFactory" class="io.prajesh.factory.HelloWorldFactory"/>
+
+  <bean id="helloWorldServiceEs" factory-bean="helloWorldFactory" factory-method="createHelloWorldService">
+    <constructor-arg value="es"/>
+    <property name="helloWorldEs" ref="helloWorldEs"/>
+  </bean>
+
+  <bean id="helloWorldServiceDe" factory-bean="helloWorldFactory" factory-method="createHelloWorldService">
+    <constructor-arg value="de"/>
+    <property name="helloWorldDe" ref="helloWorldDe"/>
+  </bean>
+
+  <bean id="helloWorldEs" class="io.prajesh.domain.impl.HelloWorldEs"/>
+  <bean id="helloWorldDe" class="io.prajesh.domain.impl.HelloWorldDE"/>
+
+  <!--Load by profile-->
+  <beans profile="english">
+    <import resource="classpath*:spring/english-hello-world-config.xml"/>
+  </beans>
+
+  <beans profile="malay">
+    <import resource="classpath*:spring/malay-hello-world-config.xml"/>
+  </beans>
+  <!--End Load by profile-->
+
+</beans>

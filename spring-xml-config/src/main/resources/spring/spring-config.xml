@@ -5,23 +5,15 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
-    <context:component-scan base-package="io.prajesh"/>
+  <context:component-scan base-package="io.prajesh"/>
 
-    <bean id="greetingController" class="io.prajesh.controller.GreetingController"/>
-    <bean id="helloWorldFactory" class="io.prajesh.factory.HelloWorldFactory"/>
+  <import resource="classpath*:spring/hello-world-config.xml"/>
 
-    <bean id="helloWorldImpl" class="io.prajesh.domain.impl.HelloWorldImpl" primary="true"/>
+  <bean id="greetingController" class="io.prajesh.controller.GreetingController">
+    <property name="helloWorldService" ref="helloWorldServiceDefault"/>
+    <property name="helloWorldServiceEs" ref="helloWorldServiceEs"/>
+    <property name="helloWorldServiceDe" ref="helloWorldServiceDe"/>
 
-    <beans profile="english">
-        <bean id="helloWorldMy" factory-bean="helloWorldFactory" factory-method="getHelloWorldFactory">
-            <constructor-arg value="en"/>
-        </bean>
-    </beans>
-
-    <beans profile="malay">
-        <bean id="helloWorldMy" factory-bean="helloWorldFactory" factory-method="getHelloWorldFactory">
-            <constructor-arg value="my"/>
-        </bean>
-    </beans>
+  </bean>
 
 </beans>
