@@ -28,6 +28,16 @@ public class Product {
     this.description = description;
   }
 
+  @Override
+  public String toString() {
+    return "Product{" +
+        "id=" + id +
+        ", description='" + description + '\'' +
+        ", price=" + price +
+        ", imageUrl='" + imageUrl + '\'' +
+        '}';
+  }
+
   public BigDecimal getPrice() {
     return price;
   }
