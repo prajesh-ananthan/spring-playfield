@@ -23,6 +23,15 @@ public class ProductServiceImpl implements ProductService {
     loadProducts();
   }
 
+  public Product getProductById(Integer id) {
+    for (Product product : products.values()) {
+      if (id == product.getId()) {
+        return product;
+      }
+    }
+    return null;
+  }
+
   @Override
   public List<Product> listProducts() {
     return new ArrayList<>(products.values());
