@@ -1,6 +1,7 @@
-package io.prajesh.service;
+package io.prajesh.service.impl;
 
 import io.prajesh.domain.Product;
+import io.prajesh.service.ProductService;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
