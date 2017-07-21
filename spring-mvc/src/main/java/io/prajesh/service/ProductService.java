@@ -14,4 +14,6 @@ public interface ProductService {
   List<Product> listProducts();
 
   Product getProductById(Integer id);
+
+  Product saveOrUpdateProduct(Product product);
 }

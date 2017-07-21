@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * @author Prajesh Ananthan
@@ -16,7 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class ProductController {
 
-  ProductService productService;
+  private static final String ERROR_PAGE = "error/404";
+  private static final String PRODUCT = "product";
+  private static final String PRODUCT_FORM = "product-form";
+  private static final String PRODUCTS = "products";
+  private static final String REDIRECT_PRODUCT = "redirect:/product/";
+  private ProductService productService;
 
   @Autowired
   public void setProductService(ProductService productService) {
@@ -26,7 +32,7 @@ public class ProductController {
   @RequestMapping("/products")
   public String listProducts(Model model) {
     model.addAttribute("products", productService.listProducts());
-    return "products";
+    return PRODUCTS;
   }
 
   @RequestMapping("/product/{id}")
@@ -34,8 +40,20 @@ public class ProductController {
     Product product = productService.getProductById(id);
     if (product != null) {
       model.addAttribute("product", product);
-      return "product";
+      return PRODUCT;
     }
-    return "error/404";
+    return ERROR_PAGE;
+  }
+
+  @RequestMapping("/product/new")
+  public String createNewProduct(Model model) {
+    model.addAttribute("product", new Product());
+    return PRODUCT_FORM;
+  }
+
+  @RequestMapping(value = "/product", method = RequestMethod.POST)
+  public String createOrUpdateProduct(Product product) {
+    Product savedProduct = productService.saveOrUpdateProduct(product);
+    return REDIRECT_PRODUCT + savedProduct.getId();
   }
 }
