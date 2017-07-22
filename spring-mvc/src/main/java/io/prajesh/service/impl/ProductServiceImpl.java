@@ -2,10 +2,18 @@ package io.prajesh.service.impl;
 
 import io.prajesh.domain.Product;
 import io.prajesh.service.ProductService;
+import io.prajesh.util.JsonUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
-import java.math.BigDecimal;
-import java.util.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author Prajesh Ananthan
@@ -14,18 +22,22 @@ import java.util.*;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-  Map<Integer, Product> products;
+  private static final String PRODUCTS_JSON_FILE = "json/products.json";
+  private static final Logger LOG = LoggerFactory.getLogger(ProductServiceImpl.class);
+  private Map<Integer, Product> products;
 
-  public ProductServiceImpl() {
+  public ProductServiceImpl() throws IOException {
     loadProducts();
   }
 
+  @Override
   public Product getProductById(Integer id) {
     for (Product product : products.values()) {
       if (id == product.getId()) {
         return product;
       }
     }
+    LOG.error("Product not found!");
     return null;
   }
 
@@ -37,9 +49,20 @@ public class ProductServiceImpl implements ProductService {
       }
       products.put(product.getId(), product);
     } else {
+      LOG.error("Product cannot be null!");
       throw new RuntimeException("Product cannot be null!");
     }
     return product;
+  }
+
+  @Override
+  public void removeProductById(Integer id) {
+    for (Product product : products.values()) {
+      if (id == product.getId()) {
+        products.remove(product.getId());
+        return;
+      }
+    }
   }
 
   @Override
@@ -48,50 +71,14 @@ public class ProductServiceImpl implements ProductService {
   }
 
   private Integer getNextKey() {
-    return Collections.max(products.keySet()) + 1;
+    if (!CollectionUtils.isEmpty(products.keySet())) {
+      return Collections.max(products.keySet()) + 1;
+    }
+    return 1;
   }
 
-  private void loadProducts() {
-    products = new HashMap<>();
-
-    Product product1 = new Product();
-    product1.setId(1);
-    product1.setDescription("Product 1");
-    product1.setPrice(new BigDecimal("12.99"));
-    product1.setImageUrl("http://example.com/product1");
-
-    products.put(1, product1);
-
-    Product product2 = new Product();
-    product2.setId(2);
-    product2.setDescription("Product 2");
-    product2.setPrice(new BigDecimal("14.99"));
-    product2.setImageUrl("http://example.com/product2");
-
-    products.put(2, product2);
-
-    Product product3 = new Product();
-    product3.setId(3);
-    product3.setDescription("Product 3");
-    product3.setPrice(new BigDecimal("34.99"));
-    product3.setImageUrl("http://example.com/product3");
-
-    products.put(3, product3);
-
-    Product product4 = new Product();
-    product4.setId(4);
-    product4.setDescription("Product 4");
-    product4.setPrice(new BigDecimal("44.99"));
-    product4.setImageUrl("http://example.com/product4");
-
-    products.put(4, product4);
-
-    Product product5 = new Product();
-    product5.setId(5);
-    product5.setDescription("Product 2");
-    product5.setPrice(new BigDecimal("25.99"));
-    product5.setImageUrl("http://example.com/product5");
-
-    products.put(5, product5);
+  private void loadProducts() throws IOException {
+    List<Product> productList = JsonUtils.convertJsonToPojo(PRODUCTS_JSON_FILE);
+    products = productList.stream().collect(Collectors.toMap(p -> p.getId(), p -> p));
   }
 }

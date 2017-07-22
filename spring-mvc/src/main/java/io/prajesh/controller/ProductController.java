@@ -21,7 +21,8 @@ public class ProductController {
   private static final String PRODUCT = "product";
   private static final String PRODUCT_FORM = "product-form";
   private static final String PRODUCTS = "products";
-  private static final String REDIRECT_PRODUCT = "redirect:/product/";
+  private static final String REDIRECT_PRODUCTS = "redirect:/" + PRODUCTS + "/";
+  private static final String REDIRECT_PRODUCT = "redirect:/" + PRODUCT + "/";
   private ProductService productService;
 
   @Autowired
@@ -56,6 +57,12 @@ public class ProductController {
     Product product = productService.getProductById(id);
     model.addAttribute("product", product);
     return PRODUCT_FORM;
+  }
+
+  @RequestMapping("/product/remove/{id}")
+  public String delete(@PathVariable Integer id, Model model) {
+    productService.removeProductById(id);
+    return REDIRECT_PRODUCTS;
   }
 
   @RequestMapping(value = "/product", method = RequestMethod.POST)
