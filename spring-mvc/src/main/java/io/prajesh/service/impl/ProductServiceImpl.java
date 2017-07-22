@@ -34,8 +34,8 @@ public class ProductServiceImpl implements ProductService {
     if (product != null) {
       if (product.getId() == null) {
         product.setId(getNextKey());
-        products.put(product.getId(), product);
       }
+      products.put(product.getId(), product);
     } else {
       throw new RuntimeException("Product cannot be null!");
     }
