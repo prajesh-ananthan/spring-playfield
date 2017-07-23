@@ -1,6 +1,7 @@
 package io.prajesh.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.prajesh.domain.Customer;
 import io.prajesh.domain.Product;
 import org.springframework.core.io.ClassPathResource;
 
@@ -13,7 +14,11 @@ import java.util.List;
  *         Created on 22/7/2017.
  */
 public class JsonUtils {
-  public static List<Product> convertJsonToPojo(String file) throws IOException {
+  public static List<Product> convertJsonToProductPojo(String file) throws IOException {
     return Arrays.asList(new ObjectMapper().readValue(new ClassPathResource(file).getInputStream(), Product[].class));
+  }
+
+  public static List<Customer> convertJsonToCustomerPojo(String file) throws IOException {
+    return Arrays.asList(new ObjectMapper().readValue(new ClassPathResource(file).getInputStream(), Customer[].class));
   }
 }

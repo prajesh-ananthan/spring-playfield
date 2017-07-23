@@ -78,7 +78,7 @@ public class ProductServiceImpl implements ProductService {
   }
 
   private void loadProducts() throws IOException {
-    List<Product> productList = JsonUtils.convertJsonToPojo(PRODUCTS_JSON_FILE);
+    List<Product> productList = JsonUtils.convertJsonToProductPojo(PRODUCTS_JSON_FILE);
     products = productList.stream().collect(Collectors.toMap(p -> p.getId(), p -> p));
   }
 }

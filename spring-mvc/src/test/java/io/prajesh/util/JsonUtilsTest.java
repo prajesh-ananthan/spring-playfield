@@ -20,7 +20,7 @@ public class JsonUtilsTest {
     final String JSON_FILE = "products-test.json";
 
     // When
-    List<Product> products = JsonUtils.convertJsonToPojo(JSON_FILE);
+    List<Product> products = JsonUtils.convertJsonToProductPojo(JSON_FILE);
 
     // Then
     assertThat(products.size(), is(4));

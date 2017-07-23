@@ -19,10 +19,12 @@ public class ProductController {
 
   private static final String ERROR_PAGE = "error/404";
   private static final String PRODUCT = "product";
-  private static final String PRODUCT_FORM = "product-form";
   private static final String PRODUCTS = "products";
+  private static final String PRODUCT_PAGE = PRODUCT + "/product";
+  private static final String PRODUCT_FORM = PRODUCT + "/product-form";
+  private static final String PRODUCTS_PAGE = PRODUCT + "/products";
   private static final String REDIRECT_PRODUCTS = "redirect:/" + PRODUCTS + "/";
-  private static final String REDIRECT_PRODUCT = "redirect:/" + PRODUCT + "/";
+  private static final String REDIRECT_PRODUCT_PAGE = "redirect:/" + PRODUCT + "/";
   private ProductService productService;
 
   @Autowired
@@ -33,7 +35,7 @@ public class ProductController {
   @RequestMapping("/products")
   public String listProducts(Model model) {
     model.addAttribute("products", productService.listProducts());
-    return PRODUCTS;
+    return PRODUCTS_PAGE;
   }
 
   @RequestMapping("/product/{id}")
@@ -41,7 +43,7 @@ public class ProductController {
     Product product = productService.getProductById(id);
     if (product != null) {
       model.addAttribute("product", product);
-      return PRODUCT;
+      return PRODUCT_PAGE;
     }
     return ERROR_PAGE;
   }
@@ -68,6 +70,6 @@ public class ProductController {
   @RequestMapping(value = "/product", method = RequestMethod.POST)
   public String createOrUpdateProduct(Product product) {
     Product savedProduct = productService.saveOrUpdateProduct(product);
-    return REDIRECT_PRODUCT + savedProduct.getId();
+    return REDIRECT_PRODUCT_PAGE + savedProduct.getId();
   }
 }
