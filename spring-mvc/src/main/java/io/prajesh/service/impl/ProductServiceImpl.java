@@ -1,6 +1,6 @@
 package io.prajesh.service.impl;
 
-import io.prajesh.domain.Product;
+import io.prajesh.domain.pojo.Product;
 import io.prajesh.service.ProductService;
 import io.prajesh.util.JsonUtils;
 import org.slf4j.Logger;

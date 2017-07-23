@@ -1,6 +1,6 @@
 package io.prajesh.controller;
 
-import io.prajesh.domain.Customer;
+import io.prajesh.domain.pojo.Customer;
 import io.prajesh.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,14 +34,14 @@ public class CustomerController {
 
   @RequestMapping(value = "/customers")
   public String listCustomers(Model model) {
-    List<Customer> customers = customerService.listCustomers();
+    List<Customer> customers = (List<Customer>) customerService.list();
     model.addAttribute("customers", customers);
     return CUSTOMERS_PAGE;
   }
 
   @RequestMapping(value = "/customer/{id}")
   public String findCustomerById(@PathVariable Integer id, Model model) {
-    Customer customer = customerService.getCustomerById(id);
+    Customer customer = customerService.findById(id);
     model.addAttribute("customer", customer);
     return CUSTOMER_PAGE;
   }
@@ -54,20 +54,20 @@ public class CustomerController {
 
   @RequestMapping("/customer/edit/{id}")
   public String edit(@PathVariable Integer id, Model model) {
-    Customer customer = customerService.getCustomerById(id);
+    Customer customer = customerService.findById(id);
     model.addAttribute("customer", customer);
     return CUSTOMER_FORM;
   }
 
   @RequestMapping("/customer/remove/{id}")
   public String delete(@PathVariable Integer id, Model model) {
-    customerService.removeCustomerById(id);
+    customerService.remove(id);
     return REDIRECT_CUSTOMERS;
   }
 
   @RequestMapping(value = "/customer", method = RequestMethod.POST)
   public String createOrUpdateProduct(Customer customer) {
-    Customer savedCustomer = customerService.saveOrUpdateCustomer(customer);
+    Customer savedCustomer = customerService.saveOrUpdate(customer);
     return REDIRECT_CUSTOMER_PAGE + savedCustomer.getId();
   }
 }

@@ -1,8 +1,8 @@
 package io.prajesh.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.prajesh.domain.Customer;
-import io.prajesh.domain.Product;
+import io.prajesh.domain.pojo.Customer;
+import io.prajesh.domain.pojo.Product;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.IOException;

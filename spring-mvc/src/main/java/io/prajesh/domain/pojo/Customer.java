@@ -1,10 +1,12 @@
-package io.prajesh.domain;
+package io.prajesh.domain.pojo;
+
+import io.prajesh.domain.DomainObject;
 
 /**
  * @author Prajesh Ananthan
  *         Created on 23/7/2017.
  */
-public class Customer {
+public class Customer implements DomainObject {
   private Integer id;
   private String firstName;
   private String lastName;
@@ -55,10 +57,12 @@ public class Customer {
     return sb.toString();
   }
 
+  @Override
   public Integer getId() {
     return id;
   }
 
+  @Override
   public void setId(Integer id) {
     this.id = id;
   }

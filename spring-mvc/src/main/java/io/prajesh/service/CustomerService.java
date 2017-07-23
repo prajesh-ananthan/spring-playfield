@@ -1,21 +1,13 @@
 package io.prajesh.service;
 
-import io.prajesh.domain.Customer;
+import io.prajesh.domain.pojo.Customer;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * @author Prajesh Ananthan
  *         Created on 23/7/2017.
  */
 @Service
-public interface CustomerService {
-  List<Customer> listCustomers();
+public interface CustomerService extends CRUDService<Customer> {
 
-  Customer getCustomerById(Integer id);
-
-  Customer saveOrUpdateCustomer(Customer customer);
-
-  void removeCustomerById(Integer id);
 }

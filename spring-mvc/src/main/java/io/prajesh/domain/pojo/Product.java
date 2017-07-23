@@ -1,4 +1,6 @@
-package io.prajesh.domain;
+package io.prajesh.domain.pojo;
+
+import io.prajesh.domain.DomainObject;
 
 import java.math.BigDecimal;
 
@@ -6,16 +8,18 @@ import java.math.BigDecimal;
  * @author Prajesh Ananthan
  *         Created on 21/7/2017.
  */
-public class Product {
+public class Product implements DomainObject {
   private Integer id;
   private String description;
   private BigDecimal price;
   private String imageUrl;
 
+  @Override
   public Integer getId() {
     return id;
   }
 
+  @Override
   public void setId(Integer id) {
     this.id = id;
   }
