@@ -20,9 +20,9 @@ public class ProductController {
   private static final String ERROR_PAGE = "error/404";
   private static final String PRODUCT = "product";
   private static final String PRODUCTS = "products";
-  private static final String PRODUCT_PAGE = PRODUCT + "/product";
+  private static final String PRODUCT_PAGE = PRODUCT + "/" + PRODUCT;
   private static final String PRODUCT_FORM = PRODUCT + "/product-form";
-  private static final String PRODUCTS_PAGE = PRODUCT + "/products";
+  private static final String PRODUCTS_PAGE = PRODUCT + "/" + PRODUCTS;
   private static final String REDIRECT_PRODUCTS = "redirect:/" + PRODUCTS + "/";
   private static final String REDIRECT_PRODUCT_PAGE = "redirect:/" + PRODUCT + "/";
   private ProductService productService;
