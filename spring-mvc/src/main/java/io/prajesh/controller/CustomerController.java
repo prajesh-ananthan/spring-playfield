@@ -1,5 +1,6 @@
 package io.prajesh.controller;
 
+import com.google.common.annotations.VisibleForTesting;
 import io.prajesh.domain.pojo.Customer;
 import io.prajesh.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,15 @@ import java.util.List;
 @Controller
 public class CustomerController {
 
-  private static final String CUSTOMER = "customer";
-  private static final String CUSTOMERS = "customers";
-  private static final String CUSTOMERS_PAGE = CUSTOMER + "/" + CUSTOMERS;
-  private static final String CUSTOMER_PAGE = CUSTOMER + "/" + CUSTOMER;
+  @VisibleForTesting
+  static final String CUSTOMER = "customer";
+  @VisibleForTesting
+  static final String CUSTOMER_PAGE = CUSTOMER + "/" + CUSTOMER;
+  @VisibleForTesting
+  static final String CUSTOMERS = "customers";
+  @VisibleForTesting
+  static final String CUSTOMERS_PAGE = CUSTOMER + "/" + CUSTOMERS;
+
   private static final String CUSTOMER_FORM = CUSTOMER + "/customer-form";
   private static final String REDIRECT_CUSTOMERS = "redirect:/" + CUSTOMERS + "/";
   private static final String REDIRECT_CUSTOMER_PAGE = "redirect:/" + CUSTOMER + "/";
