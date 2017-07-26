@@ -4,13 +4,11 @@ import io.prajesh.domain.pojo.Product;
 import io.prajesh.service.AbstractMapService;
 import io.prajesh.service.ProductService;
 import io.prajesh.util.JsonUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -18,6 +16,7 @@ import java.util.stream.Collectors;
  *         Created on 21/7/2017.
  */
 @Service
+@Profile("map")
 public class ProductServiceImpl extends AbstractMapService implements ProductService {
 
   private static final String PRODUCTS_JSON_FILE = "json/products.json";
