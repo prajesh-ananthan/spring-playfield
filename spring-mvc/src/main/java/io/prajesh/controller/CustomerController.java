@@ -27,10 +27,12 @@ public class CustomerController {
   static final String CUSTOMERS = "customers";
   @VisibleForTesting
   static final String CUSTOMERS_PAGE = CUSTOMER + "/" + CUSTOMERS;
+  @VisibleForTesting
+  static final String REDIRECT_CUSTOMERS = "redirect:/" + CUSTOMERS + "/";
+  @VisibleForTesting
+  static final String REDIRECT_CUSTOMER_PAGE = "redirect:/" + CUSTOMER + "/";
 
   private static final String CUSTOMER_FORM = CUSTOMER + "/customer-form";
-  private static final String REDIRECT_CUSTOMERS = "redirect:/" + CUSTOMERS + "/";
-  private static final String REDIRECT_CUSTOMER_PAGE = "redirect:/" + CUSTOMER + "/";
   private CustomerService customerService;
 
   @Autowired
@@ -65,14 +67,14 @@ public class CustomerController {
     return CUSTOMER_FORM;
   }
 
-  @RequestMapping("/customer/remove/{id}")
+  @RequestMapping("/customer/delete/{id}")
   public String delete(@PathVariable Integer id, Model model) {
     customerService.remove(id);
     return REDIRECT_CUSTOMERS;
   }
 
   @RequestMapping(value = "/customer", method = RequestMethod.POST)
-  public String createOrUpdateProduct(Customer customer) {
+  public String createOrUpdateCustomer(Customer customer) {
     Customer savedCustomer = customerService.saveOrUpdate(customer);
     return REDIRECT_CUSTOMER_PAGE + savedCustomer.getId();
   }

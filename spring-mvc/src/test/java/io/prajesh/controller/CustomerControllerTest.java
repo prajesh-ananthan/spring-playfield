@@ -3,6 +3,7 @@ package io.prajesh.controller;
 import io.prajesh.domain.pojo.Customer;
 import io.prajesh.service.CustomerService;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -13,10 +14,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.instanceOf;
-import static org.mockito.Mockito.when;
+import static org.hamcrest.Matchers.*;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
@@ -67,5 +68,76 @@ public class CustomerControllerTest {
         .andExpect(view().name(CustomerController.CUSTOMER_PAGE))
         .andExpect(model().attribute(CustomerController.CUSTOMER, instanceOf(Customer.class)));
 
+  }
+
+  @Ignore
+  @Test
+  public void testCreateOrUpdateCustomer() throws Exception {
+    // Passing the attributes inside
+
+    // Given
+    String id = "1";
+    String firstName = "Prajesh";
+    String lastName = "Ananthan";
+    String email = "prajesh.ananthan@test.com";
+    String phoneNumber = "01812345678";
+    String address = "30, Jalan RJ 1/1";
+    String city = "Seremban";
+    String state = "Negeri Sembilan";
+    String zipCode = "70300";
+
+
+    Customer returnedCustomer = new Customer();
+    returnedCustomer.setId(Integer.parseInt(id));
+    returnedCustomer.setFirstName(firstName);
+    returnedCustomer.setLastName(lastName);
+    returnedCustomer.setEmail(email);
+    returnedCustomer.setPhoneNumber(phoneNumber);
+    returnedCustomer.setAddress(address);
+    returnedCustomer.setCity(city);
+    returnedCustomer.setState(state);
+    returnedCustomer.setZipCode(Integer.parseInt(zipCode));
+
+    // TODO
+//    when(customerService.saveOrUpdate(Matchers.<Customer>any())).thenReturn(returnedCustomer);
+
+
+    // When
+    mockMvc.perform(
+        post("/customer")
+            .param("id", id)
+            .param("firstName", firstName)
+            .param("lastName", lastName)
+            .param("email", email)
+            .param("phoneNumber", phoneNumber)
+            .param("address", address)
+            .param("city", city)
+            .param("state", state)
+            .param("zipCode", zipCode)
+    )
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name(CustomerController.REDIRECT_CUSTOMER_PAGE + id))
+        .andExpect(model().attribute("customer", instanceOf(Customer.class)))
+        .andExpect(model().attribute("customer", hasProperty("id", is(id))))
+        .andExpect(model().attribute("customer", hasProperty("firstName", is(firstName))));
+
+
+  }
+
+  /**
+   * Check if the delete method is called with redirection status
+   */
+  @Test
+  public void testDelete() throws Exception {
+    // Given
+    Integer id = 1;
+
+    // When
+    mockMvc.perform(get("/customer/delete/1"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name(CustomerController.REDIRECT_CUSTOMERS));
+
+    // Verify
+    verify(customerService, times(1)).remove(id);
   }
 }
