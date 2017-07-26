@@ -21,8 +21,6 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl extends AbstractMapService implements ProductService {
 
   private static final String PRODUCTS_JSON_FILE = "json/products.json";
-  private static final Logger LOG = LoggerFactory.getLogger(ProductServiceImpl.class);
-  private Map<Integer, Product> products;
 
   public ProductServiceImpl() throws IOException {
   }

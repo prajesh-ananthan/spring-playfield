@@ -43,27 +43,27 @@ public class CustomerController {
   @RequestMapping(value = "/customers")
   public String listCustomers(Model model) {
     List<Customer> customers = (List<Customer>) customerService.list();
-    model.addAttribute("customers", customers);
+    model.addAttribute(CUSTOMERS, customers);
     return CUSTOMERS_PAGE;
   }
 
   @RequestMapping(value = "/customer/{id}")
   public String findCustomerById(@PathVariable Integer id, Model model) {
     Customer customer = customerService.findById(id);
-    model.addAttribute("customer", customer);
+    model.addAttribute(CUSTOMER, customer);
     return CUSTOMER_PAGE;
   }
 
   @RequestMapping("/customer/new")
   public String createNewCustomer(Model model) {
-    model.addAttribute("customer", new Customer());
+    model.addAttribute(CUSTOMER, new Customer());
     return CUSTOMER_FORM;
   }
 
   @RequestMapping("/customer/edit/{id}")
   public String edit(@PathVariable Integer id, Model model) {
     Customer customer = customerService.findById(id);
-    model.addAttribute("customer", customer);
+    model.addAttribute(CUSTOMER, customer);
     return CUSTOMER_FORM;
   }
 

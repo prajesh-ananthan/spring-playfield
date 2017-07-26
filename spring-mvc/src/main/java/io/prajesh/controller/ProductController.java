@@ -43,7 +43,7 @@ public class ProductController {
 
   @RequestMapping("/products")
   public String listProducts(Model model) {
-    model.addAttribute("products", productService.list());
+    model.addAttribute(PRODUCTS, productService.list());
     return PRODUCTS_PAGE;
   }
 
@@ -51,7 +51,7 @@ public class ProductController {
   public String findProductById(@PathVariable Integer id, Model model) {
     Product product = productService.findById(id);
     if (product != null) {
-      model.addAttribute("product", product);
+      model.addAttribute(PRODUCT, product);
       return PRODUCT_PAGE;
     }
     return ERROR_PAGE;
@@ -59,14 +59,14 @@ public class ProductController {
 
   @RequestMapping("/product/new")
   public String createNewProduct(Model model) {
-    model.addAttribute("product", new Product());
+    model.addAttribute(PRODUCT, new Product());
     return PRODUCT_FORM;
   }
 
   @RequestMapping("/product/edit/{id}")
   public String edit(@PathVariable Integer id, Model model) {
     Product product = productService.findById(id);
-    model.addAttribute("product", product);
+    model.addAttribute(PRODUCT, product);
     return PRODUCT_FORM;
   }
 
