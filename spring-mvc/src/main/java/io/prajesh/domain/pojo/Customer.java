@@ -2,12 +2,19 @@ package io.prajesh.domain.pojo;
 
 import io.prajesh.domain.DomainObject;
 
+import javax.persistence.*;
+
 /**
  * @author Prajesh Ananthan
  *         Created on 23/7/2017.
  */
+@Entity
 public class Customer implements DomainObject {
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private Integer id;
+  @Version
+  private Integer version;
   private String firstName;
   private String lastName;
   private String email;
@@ -39,6 +46,14 @@ public class Customer implements DomainObject {
 
   public void setZipCode(Integer zipCode) {
     this.zipCode = zipCode;
+  }
+
+  public Integer getVersion() {
+    return version;
+  }
+
+  public void setVersion(Integer version) {
+    this.version = version;
   }
 
   @Override
