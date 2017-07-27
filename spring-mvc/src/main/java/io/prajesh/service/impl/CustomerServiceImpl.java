@@ -7,6 +7,7 @@ import io.prajesh.service.CustomerService;
 import io.prajesh.util.JsonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
  *         Created on 23/7/2017.
  */
 @Service
+@Profile("map")
 public class CustomerServiceImpl extends AbstractMapService implements CustomerService {
 
   private static final String CUSTOMERS_JSON_FILE = "json/customers.json";

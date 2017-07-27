@@ -25,6 +25,7 @@
     <jquery.version>3.2.1</jquery.version>
     <bootstrap.version>3.3.7</bootstrap.version>
     <google.guava.version>21.0</google.guava.version>
+    <jpa.version>1.4.2.RELEASE</jpa.version>
   </properties>
 
   <dependencies>
@@ -70,6 +71,12 @@
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
       <version>${google.guava.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-test</artifactId>
+      <version>${jpa.version}</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
   <!--End Web jar-->
