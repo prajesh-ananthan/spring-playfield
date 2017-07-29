@@ -1,4 +1,4 @@
-package io.prajesh.service;
+package io.prajesh.service.impl.mapservice;
 
 import io.prajesh.domain.DomainObject;
 import org.springframework.util.CollectionUtils;

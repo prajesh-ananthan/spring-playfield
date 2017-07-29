@@ -26,6 +26,7 @@
     <bootstrap.version>3.3.7</bootstrap.version>
     <google.guava.version>21.0</google.guava.version>
     <jpa.version>1.4.2.RELEASE</jpa.version>
+    <java.simplified.encryption.version>1.9.2</java.simplified.encryption.version>
   </properties>
 
   <dependencies>
@@ -50,6 +51,14 @@
       <artifactId>h2</artifactId>
       <scope>runtime</scope>
     </dependency>
+
+    <!--Encryption-->
+    <dependency>
+      <groupId>org.jasypt</groupId>
+      <artifactId>jasypt</artifactId>
+      <version>${java.simplified.encryption.version}</version>
+    </dependency>
+
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>

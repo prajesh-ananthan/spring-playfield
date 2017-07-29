@@ -1,7 +1,9 @@
 package io.prajesh.service.impl.dao;
 
 import io.prajesh.domain.pojo.Customer;
+import io.prajesh.domain.pojo.User;
 import io.prajesh.service.CustomerService;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by ANAN011 on 27/7/2017.
@@ -32,6 +35,26 @@ public class CustomerServiceDaoTest {
   @Test
   public void testList() throws Exception {
     List<Customer> customers = (List<Customer>) customerService.list();
-    assertEquals(customers.size(), 4);
+    assertEquals(4, customers.size());
+  }
+
+  @Ignore
+  @Test
+  public void testSaveUpdateUser() throws Exception {
+    // Given
+    Customer customer = new Customer();
+    User user = new User();
+    user.setUserName("john doe");
+    user.setPassword("unknown");
+    customer.setUser(user);
+
+    // When
+    Customer savedCustomer = customerService.saveOrUpdate(customer);
+
+    // Verify
+    assertNotNull(savedCustomer.getUser());
+    assertEquals("john doe", savedCustomer.getUser().getUserName());
+    assertNotNull(savedCustomer.getUser().getEncryptedPassword()); // TODO
+    System.out.println("Encrypted password:: " + savedCustomer.getUser().getEncryptedPassword());
   }
 }

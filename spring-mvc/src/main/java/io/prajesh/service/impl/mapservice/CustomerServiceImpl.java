@@ -1,8 +1,7 @@
-package io.prajesh.service.impl;
+package io.prajesh.service.impl.mapservice;
 
 import io.prajesh.domain.DomainObject;
 import io.prajesh.domain.pojo.Customer;
-import io.prajesh.service.AbstractMapService;
 import io.prajesh.service.CustomerService;
 import io.prajesh.util.JsonUtils;
 import org.slf4j.Logger;

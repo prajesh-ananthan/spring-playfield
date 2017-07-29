@@ -2,12 +2,12 @@ package io.prajesh.service.impl.dao;
 
 import io.prajesh.domain.pojo.Customer;
 import io.prajesh.service.CustomerService;
+import io.prajesh.service.security.EncryptionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
 import java.util.List;
 
 /**
@@ -17,16 +17,13 @@ import java.util.List;
  */
 @Service
 @Profile("jpadao")
-public class CustomerServiceDao implements CustomerService {
-  private EntityManagerFactory emf;
+public class CustomerServiceDao extends AbstractDaoService implements CustomerService {
 
-  public EntityManagerFactory getEmf() {
-    return emf;
-  }
+  EncryptionService encryptionService;
 
-  @PersistenceUnit
-  public void setEmf(EntityManagerFactory emf) {
-    this.emf = emf;
+  @Autowired
+  public void setEncryptionService(EncryptionService encryptionService) {
+    this.encryptionService = encryptionService;
   }
 
   @Override
@@ -45,6 +42,12 @@ public class CustomerServiceDao implements CustomerService {
   public Customer saveOrUpdate(Customer domainObject) {
     EntityManager em = emf.createEntityManager();
     em.getTransaction().begin();
+
+    if (domainObject != null && domainObject.getUser().getPassword() != null) {
+      String encryptedPassword = encryptionService.encryptString(domainObject.getUser().getPassword());
+      domainObject.getUser().setEncryptedPassword(encryptedPassword);
+    }
+
     Customer savedCustomer = em.merge(domainObject);
     em.getTransaction().commit();
 

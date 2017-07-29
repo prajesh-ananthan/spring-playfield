@@ -1,7 +1,6 @@
-package io.prajesh.service.impl;
+package io.prajesh.service.impl.mapservice;
 
 import io.prajesh.domain.pojo.Product;
-import io.prajesh.service.AbstractMapService;
 import io.prajesh.service.ProductService;
 import io.prajesh.util.JsonUtils;
 import org.springframework.context.annotation.Profile;
