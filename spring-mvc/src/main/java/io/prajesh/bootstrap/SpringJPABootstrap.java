@@ -20,7 +20,7 @@ import java.util.List;
  *         <p>
  *         Bootstrap data for loading Customer and Product content
  */
-@Component
+//@Component
 public class SpringJPABootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
   private static final String PRODUCTS_JSON_FILE = "json/products.json";
