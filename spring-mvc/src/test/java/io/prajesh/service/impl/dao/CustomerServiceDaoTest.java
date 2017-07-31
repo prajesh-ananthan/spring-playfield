@@ -23,7 +23,7 @@ import static org.junit.Assert.assertNotNull;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-@ActiveProfiles("map")
+@ActiveProfiles("jpadao")
 public class CustomerServiceDaoTest {
   private CustomerService customerService;
 
@@ -38,7 +38,6 @@ public class CustomerServiceDaoTest {
     assertEquals(4, customers.size());
   }
 
-  @Ignore
   @Test
   public void testSaveUpdateUser() throws Exception {
     // Given
@@ -54,7 +53,7 @@ public class CustomerServiceDaoTest {
     // Verify
     assertNotNull(savedCustomer.getUser());
     assertEquals("john doe", savedCustomer.getUser().getUserName());
-    assertNotNull(savedCustomer.getUser().getEncryptedPassword()); // TODO
-    System.out.println("Encrypted password:: " + savedCustomer.getUser().getEncryptedPassword());
+    assertNotNull(savedCustomer.getUser().getEncryptedPassword());
+    System.out.println("Encrypted password ==> " + savedCustomer.getUser().getEncryptedPassword());
   }
 }
