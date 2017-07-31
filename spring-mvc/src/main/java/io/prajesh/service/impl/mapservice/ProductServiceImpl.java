@@ -18,8 +18,6 @@ import java.util.stream.Collectors;
 @Profile("map")
 public class ProductServiceImpl extends AbstractMapService implements ProductService {
 
-  private static final String PRODUCTS_JSON_FILE = "json/products.json";
-
   public ProductServiceImpl() throws IOException {
   }
 

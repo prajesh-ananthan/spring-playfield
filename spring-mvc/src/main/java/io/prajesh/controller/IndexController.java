@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class IndexController {
 
+  private static final String INDEX_PAGE = "index";
+
   @RequestMapping("/")
   public String home() {
-    return "index";
+    return INDEX_PAGE;
   }
 }

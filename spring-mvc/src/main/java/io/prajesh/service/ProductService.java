@@ -9,4 +9,5 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public interface ProductService extends CRUDService<Product> {
+  String PRODUCTS_JSON_FILE = "json/products.json";
 }

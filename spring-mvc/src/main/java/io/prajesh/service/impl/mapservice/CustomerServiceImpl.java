@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 @Profile("map")
 public class CustomerServiceImpl extends AbstractMapService implements CustomerService {
 
-  private static final String CUSTOMERS_JSON_FILE = "json/customers.json";
   private static final Logger LOG = LoggerFactory.getLogger(CustomerServiceImpl.class);
 
   public CustomerServiceImpl() throws IOException {

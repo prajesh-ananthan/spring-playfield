@@ -8,7 +8,6 @@ import io.prajesh.util.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.List;
@@ -23,8 +22,6 @@ import java.util.List;
 //@Component
 public class SpringJPABootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
-  private static final String PRODUCTS_JSON_FILE = "json/products.json";
-  private static final String CUSTOMERS_JSON_FILE = "json/customers.json";
   private ProductService productService;
   private CustomerService customerService;
 
@@ -49,12 +46,12 @@ public class SpringJPABootstrap implements ApplicationListener<ContextRefreshedE
   }
 
   private void loadProducts() throws IOException {
-    List<Product> productList = JsonUtils.convertJsonToProductPojo(PRODUCTS_JSON_FILE);
+    List<Product> productList = JsonUtils.convertJsonToProductPojo(ProductService.PRODUCTS_JSON_FILE);
     productList.forEach(p -> productService.saveOrUpdate(p));
   }
 
   private void loadCustomers() throws IOException {
-    List<Customer> customerList = JsonUtils.convertJsonToCustomerPojo(CUSTOMERS_JSON_FILE);
+    List<Customer> customerList = JsonUtils.convertJsonToCustomerPojo(CustomerService.CUSTOMERS_JSON_FILE);
     customerList.forEach(c -> customerService.saveOrUpdate(c));
   }
 }
