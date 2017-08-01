@@ -3,7 +3,6 @@ package io.prajesh.service.impl.dao;
 import io.prajesh.domain.pojo.Customer;
 import io.prajesh.domain.pojo.User;
 import io.prajesh.service.CustomerService;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ import static org.junit.Assert.assertNotNull;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-@ActiveProfiles("jpadao")
+@ActiveProfiles(AbstractDaoService.JPA_DAO)
 public class CustomerServiceDaoTest {
   private CustomerService customerService;
 

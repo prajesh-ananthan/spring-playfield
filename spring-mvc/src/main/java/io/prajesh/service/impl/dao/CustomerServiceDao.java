@@ -16,7 +16,7 @@ import java.util.List;
  * @author Prajesh Ananthan, arvato Systems Malaysia Sdn Bhd
  */
 @Service
-@Profile("jpadao")
+@Profile(AbstractDaoService.JPA_DAO)
 public class CustomerServiceDao extends AbstractDaoService implements CustomerService {
 
   EncryptionService encryptionService;

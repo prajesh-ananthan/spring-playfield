@@ -8,6 +8,7 @@ import javax.persistence.PersistenceUnit;
  *         Created on 30/7/2017.
  */
 public abstract class AbstractDaoService {
+  public static final String JPA_DAO = "jpadao";
   protected EntityManagerFactory emf;
 
   @PersistenceUnit

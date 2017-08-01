@@ -19,7 +19,7 @@ import static org.junit.Assert.assertNotNull;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@ActiveProfiles("jpadao")
+@ActiveProfiles(AbstractDaoService.JPA_DAO)
 public class UserServiceDaoTest {
 
   private UserService userService;
