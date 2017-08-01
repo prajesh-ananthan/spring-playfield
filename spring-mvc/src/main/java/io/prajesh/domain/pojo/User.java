@@ -1,11 +1,14 @@
 package io.prajesh.domain.pojo;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 /**
  * @author Prajesh Ananthan
  *         Created on 29/7/2017.
  */
+@Data
 @Entity
 public class User {
 
@@ -25,51 +28,16 @@ public class User {
 
   private Boolean enabled = true;
 
-  public Integer getId() {
-    return id;
+  @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+  private Customer customer;
+
+  public Customer getCustomer() {
+    return customer;
   }
 
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
-  public Integer getVersion() {
-    return version;
-  }
-
-  public void setVersion(Integer version) {
-    this.version = version;
-  }
-
-  public String getUserName() {
-    return userName;
-  }
-
-  public void setUserName(String userName) {
-    this.userName = userName;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
-  public String getEncryptedPassword() {
-    return encryptedPassword;
-  }
-
-  public void setEncryptedPassword(String encryptedPassword) {
-    this.encryptedPassword = encryptedPassword;
-  }
-
-  public Boolean getEnabled() {
-    return enabled;
-  }
-
-  public void setEnabled(Boolean enabled) {
-    this.enabled = enabled;
+  // Truly what makes the User and Customer bi-directional
+  public void setCustomer(Customer customer) {
+    this.customer = customer;
+    customer.setUser(this);
   }
 }

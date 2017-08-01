@@ -1,11 +1,10 @@
 package io.prajesh.service.impl.dao;
 
+import io.prajesh.domain.pojo.Customer;
 import io.prajesh.domain.pojo.User;
 import io.prajesh.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -24,26 +23,42 @@ import static org.junit.Assert.assertNotNull;
 public class UserServiceDaoTest {
 
   private UserService userService;
-  private Logger LOG = LoggerFactory.getLogger(UserServiceDaoTest.class);
+  private User user;
 
   @Autowired
   public void setUserService(UserService userService) {
     this.userService = userService;
+    user = new User();
+    user.setUserName("prajesh");
+    user.setPassword("password");
   }
 
   @Test
   public void testSaveOrUpdateUser() throws Exception {
-    final String username = "prajesh";
-    final String password = "password";
-    User user = new User();
+    // Given
 
-    user.setUserName(username);
-    user.setPassword(password);
-
+    // When
     User savedUser = userService.saveOrUpdate(user);
 
-    assertEquals(savedUser.getUserName(), username);
+    // Verify
+    assertEquals(savedUser.getUserName(), "prajesh");
     assertNotNull(user.getEncryptedPassword());
-    System.out.println("Encrypted password:: " + user.getEncryptedPassword());
+    System.out.println("Encrypted password ==> " + user.getEncryptedPassword());
+  }
+
+  @Test
+  public void testSaveOfUserWithCustomer() throws Exception {
+    // Given
+    Customer customer = new Customer();
+    customer.setFirstName("Prajesh");
+    customer.setLastName("Ananthan");
+    user.setCustomer(customer);
+
+    // When
+    User savedUser = userService.saveOrUpdate(user);
+
+    // Verify
+    assertNotNull(savedUser.getId());
+    assert savedUser.getCustomer().getId() != null;
   }
 }
