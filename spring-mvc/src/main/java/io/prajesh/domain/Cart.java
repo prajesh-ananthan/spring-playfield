@@ -25,7 +25,7 @@ public class Cart implements DomainObject {
   @OneToOne
   private User user;
 
-  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "cart", orphanRemoval = true)
   private List<CartDetail> cartDetails = new ArrayList<>();
 
   @Override
