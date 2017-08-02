@@ -1,5 +1,7 @@
 package io.prajesh.domain;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +12,7 @@ import java.util.List;
  */
 
 @Entity
+@Data
 public class Cart implements DomainObject {
 
   @Id
@@ -25,33 +28,9 @@ public class Cart implements DomainObject {
   @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
   private List<CartDetail> cartDetails = new ArrayList<>();
 
-  public List<CartDetail> getCartDetails() {
-    return cartDetails;
-  }
-
-  public void setCartDetails(List<CartDetail> cartDetails) {
-    this.cartDetails = cartDetails;
-  }
-
-  public Integer getVersion() {
-    return version;
-  }
-
-  public void setVersion(Integer version) {
-    this.version = version;
-  }
-
-  public User getUser() {
-    return user;
-  }
-
-  public void setUser(User user) {
-    this.user = user;
-  }
-
   @Override
   public Integer getId() {
-    return null;
+    return id;
   }
 
   @Override

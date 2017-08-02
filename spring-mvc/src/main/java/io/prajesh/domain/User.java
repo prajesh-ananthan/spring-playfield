@@ -10,7 +10,7 @@ import javax.persistence.*;
  */
 @Data
 @Entity
-public class User {
+public class User implements DomainObject {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,14 +33,6 @@ public class User {
   @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
   private Cart cart;
 
-  public Integer getId() {
-    return id;
-  }
-
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
   public Cart getCart() {
     return cart;
   }
@@ -49,6 +41,17 @@ public class User {
     this.cart = cart;
     cart.setUser(this);
   }
+
+  @Override
+  public Integer getId() {
+    return id;
+  }
+
+  @Override
+  public void setId(Integer id) {
+    this.id = id;
+  }
+
 
   public Customer getCustomer() {
     return customer;
