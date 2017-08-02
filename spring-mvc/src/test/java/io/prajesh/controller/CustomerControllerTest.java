@@ -1,6 +1,6 @@
 package io.prajesh.controller;
 
-import io.prajesh.domain.pojo.Customer;
+import io.prajesh.domain.Customer;
 import io.prajesh.service.CustomerService;
 import org.junit.Before;
 import org.junit.Ignore;

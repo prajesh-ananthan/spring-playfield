@@ -1,6 +1,5 @@
-package io.prajesh.domain.pojo;
+package io.prajesh.domain;
 
-import io.prajesh.domain.DomainObject;
 import lombok.Data;
 
 import javax.persistence.*;

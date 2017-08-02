@@ -1,4 +1,4 @@
-package io.prajesh.domain.pojo;
+package io.prajesh.domain;
 
 import lombok.Data;
 
@@ -23,13 +23,32 @@ public class User {
 
   @Transient
   private String password;
-
   private String encryptedPassword;
-
   private Boolean enabled = true;
 
   @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
   private Customer customer;
+
+  // cart is removed when user is deleted
+  @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+  private Cart cart;
+
+  public Integer getId() {
+    return id;
+  }
+
+  public void setId(Integer id) {
+    this.id = id;
+  }
+
+  public Cart getCart() {
+    return cart;
+  }
+
+  public void setCart(Cart cart) {
+    this.cart = cart;
+    cart.setUser(this);
+  }
 
   public Customer getCustomer() {
     return customer;

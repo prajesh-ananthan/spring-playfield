@@ -1,6 +1,5 @@
-package io.prajesh.domain.pojo;
+package io.prajesh.domain;
 
-import io.prajesh.domain.DomainObject;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -32,4 +31,11 @@ public class Customer implements DomainObject {
   @OneToOne
   private User user;
 
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
+  }
 }

@@ -7,7 +7,7 @@ import java.util.List;
  *         Created on 24/7/2017.
  */
 public interface CRUDService<T> {
-  // TODO: Study generics
+
   List<?> list();
 
   T findById(Integer id);

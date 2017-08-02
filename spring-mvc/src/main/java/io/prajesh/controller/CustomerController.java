@@ -1,7 +1,7 @@
 package io.prajesh.controller;
 
 import com.google.common.annotations.VisibleForTesting;
-import io.prajesh.domain.pojo.Customer;
+import io.prajesh.domain.Customer;
 import io.prajesh.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

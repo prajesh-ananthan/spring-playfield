@@ -1,9 +1,10 @@
 package io.prajesh.service.impl.dao;
 
-import io.prajesh.domain.pojo.User;
+import io.prajesh.domain.User;
 import io.prajesh.service.UserService;
 import io.prajesh.service.security.EncryptionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -14,6 +15,7 @@ import java.util.List;
  *         Created on 30/7/2017.
  */
 @Service
+@Profile(AbstractDaoService.JPA_DAO)
 public class UserServiceDao extends AbstractDaoService implements UserService {
 
   private EncryptionService encryptionService;

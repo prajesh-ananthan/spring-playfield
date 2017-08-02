@@ -1,6 +1,6 @@
 package io.prajesh.service.impl.dao;
 
-import io.prajesh.domain.pojo.Product;
+import io.prajesh.domain.Product;
 import io.prajesh.service.ProductService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
 package io.prajesh.util;
 
-import io.prajesh.domain.pojo.Product;
+import io.prajesh.domain.Product;
 import org.junit.Test;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package io.prajesh.service;
 
-import io.prajesh.domain.pojo.User;
+import io.prajesh.domain.User;
 import org.springframework.stereotype.Service;
 
 /**

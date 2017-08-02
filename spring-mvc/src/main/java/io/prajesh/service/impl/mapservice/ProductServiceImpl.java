@@ -1,6 +1,6 @@
 package io.prajesh.service.impl.mapservice;
 
-import io.prajesh.domain.pojo.Product;
+import io.prajesh.domain.Product;
 import io.prajesh.service.ProductService;
 import io.prajesh.util.JsonUtils;
 import org.springframework.context.annotation.Profile;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  *         Created on 21/7/2017.
  */
 @Service
-@Profile("map")
+@Profile(AbstractMapService.MAP_PROFILE)
 public class ProductServiceImpl extends AbstractMapService implements ProductService {
 
   public ProductServiceImpl() throws IOException {

@@ -1,7 +1,8 @@
 package io.prajesh.service.impl.dao;
 
-import io.prajesh.domain.pojo.Customer;
-import io.prajesh.domain.pojo.User;
+import io.prajesh.domain.Cart;
+import io.prajesh.domain.Customer;
+import io.prajesh.domain.User;
 import io.prajesh.service.CustomerService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -55,4 +56,6 @@ public class CustomerServiceDaoTest {
     assertNotNull(savedCustomer.getUser().getEncryptedPassword());
     System.out.println("Encrypted password ==> " + savedCustomer.getUser().getEncryptedPassword());
   }
+
+
 }

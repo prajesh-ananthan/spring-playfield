@@ -1,6 +1,6 @@
 package io.prajesh.service.impl.dao;
 
-import io.prajesh.domain.pojo.Customer;
+import io.prajesh.domain.Customer;
 import io.prajesh.service.CustomerService;
 import io.prajesh.service.security.EncryptionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +43,7 @@ public class CustomerServiceDao extends AbstractDaoService implements CustomerSe
     EntityManager em = emf.createEntityManager();
     em.getTransaction().begin();
 
-    if (domainObject != null && domainObject.getUser().getPassword() != null) {
+    if (domainObject.getUser() != null && domainObject.getUser().getPassword() != null) {
       String encryptedPassword = encryptionService.encryptString(domainObject.getUser().getPassword());
       domainObject.getUser().setEncryptedPassword(encryptedPassword);
     }

@@ -1,13 +1,14 @@
 package io.prajesh.bootstrap;
 
-import io.prajesh.domain.pojo.Customer;
-import io.prajesh.domain.pojo.Product;
+import io.prajesh.domain.Customer;
+import io.prajesh.domain.Product;
 import io.prajesh.service.CustomerService;
 import io.prajesh.service.ProductService;
 import io.prajesh.util.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.List;
  *         <p>
  *         Bootstrap data for loading Customer and Product content
  */
-//@Component
+@Component
 public class SpringJPABootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
   private ProductService productService;
