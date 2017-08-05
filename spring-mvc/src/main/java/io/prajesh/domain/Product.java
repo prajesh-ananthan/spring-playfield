@@ -22,5 +22,4 @@ public class Product implements DomainObject {
   private String description;
   private BigDecimal price;
   private String imageUrl;
-
 }

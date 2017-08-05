@@ -6,6 +6,7 @@ import io.prajesh.service.CustomerService;
 import io.prajesh.service.ProductService;
 import io.prajesh.util.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -26,6 +27,9 @@ public class SpringJPABootstrap implements ApplicationListener<ContextRefreshedE
   private ProductService productService;
   private CustomerService customerService;
 
+  @Value("${bootstrap.data}")
+  private boolean initBootstrap;
+
   @Autowired
   public void setCustomerService(CustomerService customerService) {
     this.customerService = customerService;
@@ -38,11 +42,13 @@ public class SpringJPABootstrap implements ApplicationListener<ContextRefreshedE
 
   @Override
   public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-    try {
-      loadProducts();
-      loadCustomers();
-    } catch (IOException e) {
-      e.printStackTrace();
+    if (initBootstrap) {
+      try {
+        loadProducts();
+        loadCustomers();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
     }
   }
 
