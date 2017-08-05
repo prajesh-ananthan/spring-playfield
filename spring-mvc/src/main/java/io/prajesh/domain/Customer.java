@@ -23,10 +23,9 @@ public class Customer implements DomainObject {
   private String lastName;
   private String email;
   private String phoneNumber;
-  private String address;
-  private String city;
-  private String state;
-  private Integer zipCode;
+
+  @Embedded
+  private Address billingAddress;
 
   @OneToOne
   private User user;

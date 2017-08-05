@@ -87,16 +87,16 @@ public class CustomerControllerTest {
     String zipCode = "70300";
 
 
-    Customer returnedCustomer = new Customer();
-    returnedCustomer.setId(Integer.parseInt(id));
-    returnedCustomer.setFirstName(firstName);
-    returnedCustomer.setLastName(lastName);
-    returnedCustomer.setEmail(email);
-    returnedCustomer.setPhoneNumber(phoneNumber);
-    returnedCustomer.setAddress(address);
-    returnedCustomer.setCity(city);
-    returnedCustomer.setState(state);
-    returnedCustomer.setZipCode(Integer.parseInt(zipCode));
+//    Customer returnedCustomer = new Customer();
+//    returnedCustomer.setId(Integer.parseInt(id));
+//    returnedCustomer.setFirstName(firstName);
+//    returnedCustomer.setLastName(lastName);
+//    returnedCustomer.setEmail(email);
+//    returnedCustomer.setPhoneNumber(phoneNumber);
+//    returnedCustomer.setAddress(address);
+//    returnedCustomer.setCity(city);
+//    returnedCustomer.setState(state);
+//    returnedCustomer.setZipCode(Integer.parseInt(zipCode));
 
     // TODO
 //    when(customerService.saveOrUpdate(Matchers.<Customer>any())).thenReturn(returnedCustomer);

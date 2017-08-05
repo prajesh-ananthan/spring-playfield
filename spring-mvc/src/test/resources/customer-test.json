@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "firstName": "Prajesh",
+    "lastName": "Ananthan",
+    "email": "prajesh.ananthan@test.com",
+    "phoneNumber": "012345678",
+    "billingAddress": {
+      "addressLine1": "50, Jalan RJ, 1/21",
+      "addressLine2": "Taman Rasah Jaya",
+      "city": "Seremban",
+      "state": "Negeri Sembilan",
+      "zipCode": "70300"
+    }
+  }
+]
