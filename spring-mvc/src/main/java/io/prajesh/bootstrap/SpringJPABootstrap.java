@@ -1,9 +1,11 @@
 package io.prajesh.bootstrap;
 
-import io.prajesh.domain.Customer;
-import io.prajesh.domain.Product;
+import io.prajesh.domain.*;
+import io.prajesh.enums.OrderStatus;
 import io.prajesh.service.CustomerService;
+import io.prajesh.service.OrderService;
 import io.prajesh.service.ProductService;
+import io.prajesh.service.UserService;
 import io.prajesh.util.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,6 +28,8 @@ public class SpringJPABootstrap implements ApplicationListener<ContextRefreshedE
 
   private ProductService productService;
   private CustomerService customerService;
+  private UserService userService;
+  private OrderService orderService;
 
   @Value("${bootstrap.data}")
   private boolean initBootstrap;
@@ -40,16 +44,62 @@ public class SpringJPABootstrap implements ApplicationListener<ContextRefreshedE
     this.productService = productService;
   }
 
+  @Autowired
+  public void setUserService(UserService userService) {
+    this.userService = userService;
+  }
+
+  @Autowired
+  public void setOrderService(OrderService orderService) {
+    this.orderService = orderService;
+  }
+
   @Override
   public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
     if (initBootstrap) {
       try {
         loadProducts();
-        loadCustomers();
+        loadUserAndCustomers();
+        loadCarts();
+        loadOrderHistory();
       } catch (IOException e) {
         e.printStackTrace();
       }
     }
+  }
+
+  private void loadOrderHistory() {
+    final List<User> users = (List<User>) userService.list();
+    final List<Product> products = (List<Product>) productService.list();
+
+    users.forEach(user -> {
+      Order order = new Order();
+      order.setCustomer(user.getCustomer());
+      order.setOrderStatus(OrderStatus.SHIPPED);
+
+      products.forEach(product -> {
+        OrderDetail orderDetail = new OrderDetail();
+        orderDetail.setProduct(product);
+        orderDetail.setQuantity(1);
+        order.addToOrderDetails(orderDetail);
+      });
+      orderService.saveOrUpdate(order);
+    });
+  }
+
+
+  private void loadCarts() {
+    final List<User> users = (List<User>) userService.list();
+    final List<Product> products = (List<Product>) productService.list();
+
+    users.forEach(user -> {
+      user.setCart(new Cart());
+      CartDetail cartDetail = new CartDetail();
+      cartDetail.setProduct(products.get(0));
+      cartDetail.setQuantity(2);
+      user.getCart().addCartDetail(cartDetail);
+      userService.saveOrUpdate(user);
+    });
   }
 
   private void loadProducts() throws IOException {
@@ -57,7 +107,7 @@ public class SpringJPABootstrap implements ApplicationListener<ContextRefreshedE
     productList.forEach(p -> productService.saveOrUpdate(p));
   }
 
-  private void loadCustomers() throws IOException {
+  private void loadUserAndCustomers() throws IOException {
     List<Customer> customerList = JsonUtils.convertJsonToCustomerPojo(CustomerService.CUSTOMERS_JSON_FILE);
     customerList.forEach(c -> customerService.saveOrUpdate(c));
   }

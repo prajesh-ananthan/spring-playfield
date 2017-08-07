@@ -2,7 +2,10 @@ package io.prajesh.domain;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 /**
  * @author Prajesh Ananthan
@@ -10,31 +13,14 @@ import javax.persistence.*;
  */
 @Data
 @Entity
-public class Customer implements DomainObject {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Integer id;
-
-  @Version
-  private Integer version;
+public class Customer extends AbstractDomain {
 
   private String firstName;
   private String lastName;
   private String email;
   private String phoneNumber;
-
   @Embedded
   private Address billingAddress;
-
-  @OneToOne
+  @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
   private User user;
-
-  public User getUser() {
-    return user;
-  }
-
-  public void setUser(User user) {
-    this.user = user;
-  }
 }

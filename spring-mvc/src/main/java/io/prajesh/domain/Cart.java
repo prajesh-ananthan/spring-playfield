@@ -2,7 +2,10 @@ package io.prajesh.domain;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,14 +16,7 @@ import java.util.List;
 
 @Entity
 @Data
-public class Cart implements DomainObject {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Integer id;
-
-  @Version
-  private Integer version;
+public class Cart extends AbstractDomain {
 
   @OneToOne
   private User user;
@@ -28,23 +24,15 @@ public class Cart implements DomainObject {
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "cart", orphanRemoval = true)
   private List<CartDetail> cartDetails = new ArrayList<>();
 
-  @Override
-  public Integer getId() {
-    return id;
-  }
-
-  @Override
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
   public void addCartDetail(CartDetail cartDetail) {
     cartDetails.add(cartDetail);
     cartDetail.setCart(this);
   }
 
   public void removeCartDetail(CartDetail cartDetail) {
-    cartDetails.remove(cartDetail);
-    cartDetail.setCart(null);
+    if (cartDetail != null) {
+      cartDetails.remove(cartDetail);
+      cartDetail.setCart(null);
+    }
   }
 }

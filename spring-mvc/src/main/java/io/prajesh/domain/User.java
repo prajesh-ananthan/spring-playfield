@@ -2,7 +2,10 @@ package io.prajesh.domain;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 /**
  * @author Prajesh Ananthan
@@ -10,25 +13,15 @@ import javax.persistence.*;
  */
 @Data
 @Entity
-public class User implements DomainObject {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Integer id;
-
-  @Version
-  private Integer version;
+public class User extends AbstractDomain {
 
   private String userName;
-
   @Transient
   private String password;
   private String encryptedPassword;
   private Boolean enabled = true;
-
   @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
   private Customer customer;
-
   // cart is removed when user is deleted
   @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
   private Cart cart;
@@ -41,17 +34,6 @@ public class User implements DomainObject {
     this.cart = cart;
     cart.setUser(this);
   }
-
-  @Override
-  public Integer getId() {
-    return id;
-  }
-
-  @Override
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
 
   public Customer getCustomer() {
     return customer;
