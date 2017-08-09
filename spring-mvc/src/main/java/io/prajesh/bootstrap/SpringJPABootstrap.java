@@ -87,7 +87,6 @@ public class SpringJPABootstrap implements ApplicationListener<ContextRefreshedE
     });
   }
 
-
   private void loadCarts() {
     final List<User> users = (List<User>) userService.list();
     final List<Product> products = (List<Product>) productService.list();
@@ -108,7 +107,7 @@ public class SpringJPABootstrap implements ApplicationListener<ContextRefreshedE
   }
 
   private void loadUserAndCustomers() throws IOException {
-    List<Customer> customerList = JsonUtils.convertJsonToCustomerPojo(CustomerService.CUSTOMERS_JSON_FILE);
-    customerList.forEach(c -> customerService.saveOrUpdate(c));
+    List<User> userList = JsonUtils.convertJsonToUserPojo(UserService.USERS_JSON_FILE);
+    userList.forEach(u -> userService.saveOrUpdate(u));
   }
 }
