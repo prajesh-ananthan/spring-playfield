@@ -24,6 +24,22 @@ public class Cart extends AbstractDomain {
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "cart", orphanRemoval = true)
   private List<CartDetail> cartDetails = new ArrayList<>();
 
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
+  }
+
+  public List<CartDetail> getCartDetails() {
+    return cartDetails;
+  }
+
+  public void setCartDetails(List<CartDetail> cartDetails) {
+    this.cartDetails = cartDetails;
+  }
+
   public void addCartDetail(CartDetail cartDetail) {
     cartDetails.add(cartDetail);
     cartDetail.setCart(this);

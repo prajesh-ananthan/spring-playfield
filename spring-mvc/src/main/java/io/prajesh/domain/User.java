@@ -1,7 +1,5 @@
 package io.prajesh.domain;
 
-import lombok.Data;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
@@ -11,7 +9,6 @@ import javax.persistence.Transient;
  * @author Prajesh Ananthan
  *         Created on 29/7/2017.
  */
-@Data
 @Entity
 public class User extends AbstractDomain {
 
@@ -25,6 +22,38 @@ public class User extends AbstractDomain {
   // cart is removed when user is deleted
   @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
   private Cart cart;
+
+  public String getUserName() {
+    return userName;
+  }
+
+  public void setUserName(String userName) {
+    this.userName = userName;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  public String getEncryptedPassword() {
+    return encryptedPassword;
+  }
+
+  public void setEncryptedPassword(String encryptedPassword) {
+    this.encryptedPassword = encryptedPassword;
+  }
+
+  public Boolean getEnabled() {
+    return enabled;
+  }
+
+  public void setEnabled(Boolean enabled) {
+    this.enabled = enabled;
+  }
 
   public Cart getCart() {
     return cart;
