@@ -70,7 +70,7 @@ public class ProductController {
     return PRODUCT_FORM;
   }
 
-  @RequestMapping("/product/remove/{id}")
+  @RequestMapping(value = "/product/remove/{id}", method = RequestMethod.DELETE)
   public String delete(@PathVariable Integer id, Model model) {
     productService.remove(id);
     return REDIRECT_PRODUCTS;
