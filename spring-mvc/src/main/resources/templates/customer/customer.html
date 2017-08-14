@@ -26,7 +26,7 @@
         <div class="col-sm-8">
             <form class="form-horizontal">
                 <div class="form-group">
-                    <label  th:text="#{customer.id.label}" class="col-sm-2 control-label">Customer Id:</label>
+                    <label th:text="#{customer.id.label}" class="col-sm-2 control-label">Customer Id:</label>
                     <div class="col-sm-10">
                         <p class="form-control-static" th:text="${customer.id}">Customer Id</p>
                     </div>
@@ -56,27 +56,33 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 sm-2 control-label">Address: </label>
+                    <label class="col-sm-2 sm-2 control-label">Address Line 1: </label>
                     <div class="col-sm-10">
-                        <p class="form-control-static" th:text="${customer.address}">Image</p>
+                        <p class="form-control-static" th:text="${customer.billingAddress.addressLine1}">Image</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 sm-2 control-label">Address Line 2: </label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static" th:text="${customer.billingAddress.addressLine2}">Image</p>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 sm-2 control-label">City: </label>
                     <div class="col-sm-10">
-                        <p class="form-control-static" th:text="${customer.city}">Image</p>
+                        <p class="form-control-static" th:text="${customer.billingAddress.city}">Image</p>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 sm-2 control-label">State: </label>
                     <div class="col-sm-10">
-                        <p class="form-control-static" th:text="${customer.state}">Image</p>
+                        <p class="form-control-static" th:text="${customer.billingAddress.state}">Image</p>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 sm-2 control-label">Zip Code: </label>
                     <div class="col-sm-10">
-                        <p class="form-control-static" th:text="${customer.zipCode}">Image</p>
+                        <p class="form-control-static" th:text="${customer.billingAddress.zipCode}">Image</p>
                     </div>
                 </div>
             </form>

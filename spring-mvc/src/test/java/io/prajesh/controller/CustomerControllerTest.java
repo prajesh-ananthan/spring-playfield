@@ -135,7 +135,7 @@ public class CustomerControllerTest {
     // When
     mockMvc.perform(get("/customer/delete/1"))
         .andExpect(status().is3xxRedirection())
-        .andExpect(view().name(CustomerController.REDIRECT_CUSTOMERS));
+        .andExpect(view().name(CustomerController.REDIRECT_CUSTOMER_LIST));
 
     // Verify
     verify(customerService, times(1)).remove(id);
