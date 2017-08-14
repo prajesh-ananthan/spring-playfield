@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
@@ -17,6 +17,7 @@ import java.util.List;
  *         Created on 23/7/2017.
  */
 @Controller
+@RequestMapping("/customer")
 public class CustomerController {
 
   @VisibleForTesting
@@ -40,40 +41,40 @@ public class CustomerController {
     this.customerService = customerService;
   }
 
-  @RequestMapping(value = "/customers")
+  @RequestMapping(value = "/list")
   public String listCustomers(Model model) {
     List<Customer> customers = (List<Customer>) customerService.list();
     model.addAttribute(CUSTOMERS, customers);
     return CUSTOMERS_PAGE;
   }
 
-  @RequestMapping(value = "/customer/{id}")
+  @RequestMapping(value = "/{id}")
   public String findCustomerById(@PathVariable Integer id, Model model) {
     Customer customer = customerService.findById(id);
     model.addAttribute(CUSTOMER, customer);
     return CUSTOMER_PAGE;
   }
 
-  @RequestMapping("/customer/new")
+  @RequestMapping("/new")
   public String createNewCustomer(Model model) {
     model.addAttribute(CUSTOMER, new Customer());
     return CUSTOMER_FORM;
   }
 
-  @RequestMapping("/customer/edit/{id}")
+  @RequestMapping("/edit/{id}")
   public String edit(@PathVariable Integer id, Model model) {
     Customer customer = customerService.findById(id);
     model.addAttribute(CUSTOMER, customer);
     return CUSTOMER_FORM;
   }
 
-  @RequestMapping("/customer/delete/{id}")
+  @RequestMapping("/delete/{id}")
   public String delete(@PathVariable Integer id, Model model) {
     customerService.remove(id);
     return REDIRECT_CUSTOMERS;
   }
 
-  @RequestMapping(value = "/customer", method = RequestMethod.POST)
+  @PostMapping
   public String createOrUpdateCustomer(Customer customer) {
     Customer savedCustomer = customerService.saveOrUpdate(customer);
     return REDIRECT_CUSTOMER_PAGE + savedCustomer.getId();

@@ -5,7 +5,10 @@ import io.prajesh.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * @author Prajesh Ananthan
@@ -18,6 +21,7 @@ public class UserController {
   static final String USERS = "users";
   static final String USER = "user";
   static final String REDIRECT_USER_PAGE = "redirect:/" + USER + "/";
+  static final String REDIRECT_USER_LIST_PAGE = "redirect:/" + USER + "/list/";
   static final String USER_FORM = "user/user-form";
   static final String USER_PAGE = "user/user";
   static final String USERS_PAGE = "user/users";
@@ -46,13 +50,21 @@ public class UserController {
     return USER_FORM;
   }
 
-  @PutMapping("/edit/{id}")
+  @GetMapping("/edit/{id}")
   public String edit(@PathVariable Integer id, Model model) {
-    model.addAttribute(USER, userService.findById(id));
+    User updateUser = userService.findById(id);
+    model.addAttribute(USER, updateUser);
     return USER_FORM;
   }
 
-  @PostMapping(value = "/")
+  // TODO: Fix user deletion from the DB
+  @RequestMapping(value = "/delete/{id}")
+  public String delete(@PathVariable Integer id, Model model) {
+    userService.remove(id);
+    return REDIRECT_USER_LIST_PAGE;
+  }
+
+  @PostMapping
   public String createOrUpdateUser(User user) {
     User savedUser = userService.saveOrUpdate(user);
     return REDIRECT_USER_PAGE + savedUser.getId();
