@@ -1,5 +1,6 @@
 package io.prajesh.controller;
 
+import com.google.common.annotations.VisibleForTesting;
 import io.prajesh.domain.User;
 import io.prajesh.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +19,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/user")
 public class UserController {
 
+  @VisibleForTesting
   static final String USERS = "users";
+  @VisibleForTesting
   static final String USER = "user";
+  @VisibleForTesting
   static final String REDIRECT_USER_PAGE = "redirect:/" + USER + "/";
+  @VisibleForTesting
   static final String REDIRECT_USER_LIST_PAGE = "redirect:/" + USER + "/list/";
+  @VisibleForTesting
   static final String USER_FORM = "user/user-form";
+  @VisibleForTesting
   static final String USER_PAGE = "user/user";
+  @VisibleForTesting
   static final String USERS_PAGE = "user/users";
   private UserService userService;
 
