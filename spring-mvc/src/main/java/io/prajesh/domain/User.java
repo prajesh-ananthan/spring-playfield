@@ -1,9 +1,10 @@
 package io.prajesh.domain;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Transient;
+import io.prajesh.domain.security.Role;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Prajesh Ananthan
@@ -12,6 +13,10 @@ import javax.persistence.Transient;
 @Entity
 public class User extends AbstractDomain {
 
+
+  @ManyToMany
+  @JoinTable
+  private List<Role> roles = new ArrayList<>();
   private String userName;
   @Transient
   private String password;
@@ -22,6 +27,14 @@ public class User extends AbstractDomain {
   // cart is removed when user is deleted
   @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
   private Cart cart;
+
+  public List<Role> getRoles() {
+    return roles;
+  }
+
+  public void setRoles(List<Role> roles) {
+    this.roles = roles;
+  }
 
   public String getUserName() {
     return userName;
@@ -72,5 +85,19 @@ public class User extends AbstractDomain {
   public void setCustomer(Customer customer) {
     this.customer = customer;
     customer.setUser(this);
+  }
+
+  public void addRole(Role role) {
+    if (!roles.contains(role)) {
+      roles.add(role);
+    }
+    if (!role.getUsers().contains(this)) {
+      role.getUsers().add(this);
+    }
+  }
+
+  public void removeRole(Role role) {
+    this.roles.remove(role);
+    role.getUsers().remove(this);
   }
 }

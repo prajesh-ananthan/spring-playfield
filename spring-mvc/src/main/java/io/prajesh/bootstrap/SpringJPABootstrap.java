@@ -1,12 +1,12 @@
 package io.prajesh.bootstrap;
 
 import io.prajesh.domain.*;
+import io.prajesh.domain.security.Role;
 import io.prajesh.enums.OrderStatus;
-import io.prajesh.service.CustomerService;
-import io.prajesh.service.OrderService;
-import io.prajesh.service.ProductService;
-import io.prajesh.service.UserService;
+import io.prajesh.service.*;
 import io.prajesh.util.JsonUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
@@ -26,11 +26,12 @@ import java.util.List;
 @Component
 public class SpringJPABootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
+  private static final Logger LOG = LoggerFactory.getLogger(SpringJPABootstrap.class);
   private ProductService productService;
   private CustomerService customerService;
   private UserService userService;
   private OrderService orderService;
-
+  private RoleService roleService;
   @Value("${bootstrap.data}")
   private boolean initBootstrap;
 
@@ -54,6 +55,11 @@ public class SpringJPABootstrap implements ApplicationListener<ContextRefreshedE
     this.orderService = orderService;
   }
 
+  @Autowired
+  public void setRoleService(RoleService roleService) {
+    this.roleService = roleService;
+  }
+
   @Override
   public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
     if (initBootstrap) {
@@ -62,10 +68,36 @@ public class SpringJPABootstrap implements ApplicationListener<ContextRefreshedE
         loadUserAndCustomers();
         loadCarts();
         loadOrderHistory();
+        loadRoles();
+        applyDefaultRolesOnUsers();
       } catch (IOException e) {
-        e.printStackTrace();
+        LOG.error("Unable to open JSON file: ", e.getMessage());
       }
     }
+  }
+
+  private void loadRoles() {
+    Role role = new Role();
+    role.setRole(CustomerService.CUSTOMER);
+    roleService.saveOrUpdate(role);
+  }
+
+  private void applyDefaultRolesOnUsers() {
+    final List<User> users = (List<User>) userService.list();
+    final List<Role> roles = (List<Role>) roleService.list();
+
+    roles.forEach(
+        role -> {
+          if (role.getRole().equalsIgnoreCase(CustomerService.CUSTOMER)) {
+            users.forEach(
+                user -> {
+                  user.addRole(role);
+                  userService.saveOrUpdate(user);
+                }
+            );
+          }
+        }
+    );
   }
 
   private void loadOrderHistory() {
