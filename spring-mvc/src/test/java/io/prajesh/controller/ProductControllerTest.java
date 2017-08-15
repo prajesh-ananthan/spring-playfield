@@ -47,7 +47,7 @@ public class ProductControllerTest {
     when(productService.list()).thenReturn((List) products);
 
     // Verify
-    mockMvc.perform(get("/products"))
+    mockMvc.perform(get("/product/list"))
         .andExpect(status().isOk())
         .andExpect(view().name(ProductController.PRODUCTS_PAGE))
         .andExpect(model().attribute(ProductController.PRODUCTS, hasSize(2)));

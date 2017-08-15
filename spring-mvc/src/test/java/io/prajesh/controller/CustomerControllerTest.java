@@ -48,7 +48,7 @@ public class CustomerControllerTest {
     when(customerService.list()).thenReturn((List) customers);
 
     // Verify
-    mockMvc.perform(get("/customers"))
+    mockMvc.perform(get("/customer/list"))
         .andExpect(status().isOk())
         .andExpect(view().name(CustomerController.CUSTOMERS_PAGE))
         .andExpect(model().attribute(CustomerController.CUSTOMERS, hasSize(2)));
