@@ -4,7 +4,7 @@ install: mvn clean install
 addons:
   coverity_scan:
     project:
-      name: "prajesh.ananthan/spring-mvc/spring-playfield"
+      name: "prajesh.ananthan/spring-playfield/spring-mvc"
       description: "Build submitted via Travis CI"
     notification_email: prajesh.ananthan@outlook.com
     build_command_prepend: "mvn clean"
