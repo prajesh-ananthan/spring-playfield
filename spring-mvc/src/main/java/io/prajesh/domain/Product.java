@@ -2,7 +2,7 @@ package io.prajesh.domain;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
 import java.math.BigDecimal;
 
 /**
@@ -11,16 +11,8 @@ import java.math.BigDecimal;
  */
 @Data
 @Entity
-public class Product implements DomainObject {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Integer id;
-
-  @Version
-  private Integer version;
-
+public class Product extends AbstractDomain {
   private String description;
   private BigDecimal price;
   private String imageUrl;
-
 }

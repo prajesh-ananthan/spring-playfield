@@ -1,9 +1,8 @@
 package io.prajesh.controller;
 
-import io.prajesh.domain.Product;
-import io.prajesh.service.ProductService;
+import io.prajesh.domain.User;
+import io.prajesh.service.UserService;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -21,15 +20,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 /**
  * @author Prajesh Ananthan
- *         Created on 26/7/2017.
+ *         Created on 14/8/2017.
  */
-public class ProductControllerTest {
+public class UserControllerTest {
 
   @Mock
-  private ProductService productService;
+  UserService userService;
 
   @InjectMocks
-  private ProductController controller;
+  UserController controller;
 
   private MockMvc mockMvc;
 
@@ -40,35 +39,15 @@ public class ProductControllerTest {
   }
 
   @Test
-  public void testListProducts() throws Exception {
+  public void testListUsers() throws Exception {
     // Given
-    final List<Product> products = Arrays.asList(new Product(), new Product());
+    List<User> users = Arrays.asList(new User(), new User());
+    when(userService.list()).thenReturn((List) users);
 
-    when(productService.list()).thenReturn((List) products);
-
-    // Verify
-    mockMvc.perform(get("/product/list"))
+    // When and Verify
+    mockMvc.perform(get("/user/list"))
         .andExpect(status().isOk())
-        .andExpect(view().name(ProductController.PRODUCTS_PAGE))
-        .andExpect(model().attribute(ProductController.PRODUCTS, hasSize(2)));
-
-  }
-
-  @Ignore
-  @Test
-  public void testCreateOrUpdateProduct() throws Exception {
-    // TODO
-  }
-
-  @Ignore
-  @Test
-  public void testShowProduct() throws Exception {
-    // TODO
-  }
-
-  @Ignore
-  @Test
-  public void testDelete() throws Exception {
-    // TODO
+        .andExpect(view().name(UserController.USERS_PAGE))
+        .andExpect(model().attribute(UserController.USERS, hasSize(2)));
   }
 }

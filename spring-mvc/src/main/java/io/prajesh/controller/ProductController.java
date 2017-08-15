@@ -6,9 +6,10 @@ import io.prajesh.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * @author Prajesh Ananthan
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 
 @Controller
+@RequestMapping("/product")
 public class ProductController {
 
   @VisibleForTesting
@@ -41,13 +43,13 @@ public class ProductController {
     this.productService = productService;
   }
 
-  @RequestMapping("/products")
+  @GetMapping("/list")
   public String listProducts(Model model) {
     model.addAttribute(PRODUCTS, productService.list());
     return PRODUCTS_PAGE;
   }
 
-  @RequestMapping("/product/{id}")
+  @GetMapping("/{id}")
   public String findProductById(@PathVariable Integer id, Model model) {
     Product product = productService.findById(id);
     if (product != null) {
@@ -57,26 +59,26 @@ public class ProductController {
     return ERROR_PAGE;
   }
 
-  @RequestMapping("/product/new")
+  @GetMapping("/new")
   public String createNewProduct(Model model) {
     model.addAttribute(PRODUCT, new Product());
     return PRODUCT_FORM;
   }
 
-  @RequestMapping("/product/edit/{id}")
+  @GetMapping("/edit/{id}")
   public String edit(@PathVariable Integer id, Model model) {
     Product product = productService.findById(id);
     model.addAttribute(PRODUCT, product);
     return PRODUCT_FORM;
   }
 
-  @RequestMapping("/product/remove/{id}")
+  @GetMapping(value = "/remove/{id}")
   public String delete(@PathVariable Integer id, Model model) {
     productService.remove(id);
     return REDIRECT_PRODUCTS;
   }
 
-  @RequestMapping(value = "/product", method = RequestMethod.POST)
+  @PostMapping
   public String createOrUpdateProduct(Product product) {
     Product savedProduct = productService.saveOrUpdate(product);
     return REDIRECT_PRODUCT_PAGE + savedProduct.getId();

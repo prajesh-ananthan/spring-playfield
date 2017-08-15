@@ -48,7 +48,7 @@ public class CustomerControllerTest {
     when(customerService.list()).thenReturn((List) customers);
 
     // Verify
-    mockMvc.perform(get("/customers"))
+    mockMvc.perform(get("/customer/list"))
         .andExpect(status().isOk())
         .andExpect(view().name(CustomerController.CUSTOMERS_PAGE))
         .andExpect(model().attribute(CustomerController.CUSTOMERS, hasSize(2)));
@@ -87,16 +87,16 @@ public class CustomerControllerTest {
     String zipCode = "70300";
 
 
-    Customer returnedCustomer = new Customer();
-    returnedCustomer.setId(Integer.parseInt(id));
-    returnedCustomer.setFirstName(firstName);
-    returnedCustomer.setLastName(lastName);
-    returnedCustomer.setEmail(email);
-    returnedCustomer.setPhoneNumber(phoneNumber);
-    returnedCustomer.setAddress(address);
-    returnedCustomer.setCity(city);
-    returnedCustomer.setState(state);
-    returnedCustomer.setZipCode(Integer.parseInt(zipCode));
+//    Customer returnedCustomer = new Customer();
+//    returnedCustomer.setId(Integer.parseInt(id));
+//    returnedCustomer.setFirstName(firstName);
+//    returnedCustomer.setLastName(lastName);
+//    returnedCustomer.setEmail(email);
+//    returnedCustomer.setPhoneNumber(phoneNumber);
+//    returnedCustomer.setAddress(address);
+//    returnedCustomer.setCity(city);
+//    returnedCustomer.setState(state);
+//    returnedCustomer.setZipCode(Integer.parseInt(zipCode));
 
     // TODO
 //    when(customerService.saveOrUpdate(Matchers.<Customer>any())).thenReturn(returnedCustomer);
@@ -135,7 +135,7 @@ public class CustomerControllerTest {
     // When
     mockMvc.perform(get("/customer/delete/1"))
         .andExpect(status().is3xxRedirection())
-        .andExpect(view().name(CustomerController.REDIRECT_CUSTOMERS));
+        .andExpect(view().name(CustomerController.REDIRECT_CUSTOMER_LIST));
 
     // Verify
     verify(customerService, times(1)).remove(id);

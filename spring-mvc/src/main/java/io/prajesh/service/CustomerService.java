@@ -10,4 +10,5 @@ import org.springframework.stereotype.Service;
 @Service
 public interface CustomerService extends CRUDService<Customer> {
   String CUSTOMERS_JSON_FILE = "json/customers.json";
+  String CUSTOMER = "CUSTOMER";
 }
