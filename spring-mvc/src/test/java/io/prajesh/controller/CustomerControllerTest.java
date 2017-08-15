@@ -57,7 +57,6 @@ public class CustomerControllerTest {
 
   @Test
   public void testShowCustomer() throws Exception {
-
     // Given
     final Integer id = 1;
     when(customerService.findById(id)).thenReturn(new Customer());
@@ -67,7 +66,6 @@ public class CustomerControllerTest {
         .andExpect(status().isOk())
         .andExpect(view().name(CustomerController.CUSTOMER_PAGE))
         .andExpect(model().attribute(CustomerController.CUSTOMER, instanceOf(Customer.class)));
-
   }
 
   @Ignore
