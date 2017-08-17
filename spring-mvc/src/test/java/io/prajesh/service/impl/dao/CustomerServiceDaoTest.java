@@ -1,5 +1,6 @@
 package io.prajesh.service.impl.dao;
 
+import io.prajesh.constants.ProfileConfig;
 import io.prajesh.domain.Cart;
 import io.prajesh.domain.Customer;
 import io.prajesh.domain.User;
@@ -23,7 +24,7 @@ import static org.junit.Assert.assertNotNull;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-@ActiveProfiles(AbstractDaoService.JPA_DAO)
+@ActiveProfiles(ProfileConfig.JPA_DAO)
 public class CustomerServiceDaoTest {
   private CustomerService customerService;
 

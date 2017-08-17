@@ -1,5 +1,6 @@
 package io.prajesh.service.impl.dao;
 
+import io.prajesh.constants.ProfileConfig;
 import io.prajesh.domain.*;
 import io.prajesh.service.ProductService;
 import io.prajesh.service.UserService;
@@ -21,7 +22,7 @@ import static org.junit.Assert.*;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@ActiveProfiles(AbstractDaoService.JPA_DAO)
+@ActiveProfiles(ProfileConfig.JPA_DAO)
 public class UserServiceDaoTest {
 
   private UserService userService;

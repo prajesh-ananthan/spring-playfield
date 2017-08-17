@@ -1,8 +1,8 @@
 package io.prajesh.service.impl.dao;
 
+import io.prajesh.constants.ProfileConfig;
 import io.prajesh.domain.Product;
 import io.prajesh.service.ProductService;
-import io.prajesh.service.impl.mapservice.AbstractMapService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-@ActiveProfiles(AbstractMapService.MAP_PROFILE)
+@ActiveProfiles(ProfileConfig.MAP)
 public class ProductServiceDaoTest {
 
   private ProductService productService;
