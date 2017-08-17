@@ -1,6 +1,7 @@
 package io.prajesh.service.impl.dao;
 
 import io.prajesh.domain.Product;
+import io.prajesh.constants.ProfileConfig;
 import io.prajesh.service.ProductService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ import java.util.List;
  *         Created on 27/7/2017.
  */
 @Service
-@Profile(AbstractDaoService.JPA_DAO)
+@Profile(ProfileConfig.DISABLED)
 public class ProductServiceDao extends AbstractDaoService implements ProductService {
 
   @Override

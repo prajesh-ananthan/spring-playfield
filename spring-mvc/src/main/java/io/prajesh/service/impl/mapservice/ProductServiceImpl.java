@@ -1,5 +1,6 @@
 package io.prajesh.service.impl.mapservice;
 
+import io.prajesh.constants.ProfileConfig;
 import io.prajesh.domain.Product;
 import io.prajesh.service.ProductService;
 import io.prajesh.util.JsonUtils;
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
  *         Created on 21/7/2017.
  */
 @Service
-@Profile(AbstractMapService.MAP_PROFILE)
+@Profile(ProfileConfig.MAP)
 public class ProductServiceImpl extends AbstractMapService implements ProductService {
 
   public ProductServiceImpl() throws IOException {

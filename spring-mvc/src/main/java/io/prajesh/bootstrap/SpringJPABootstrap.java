@@ -135,11 +135,11 @@ public class SpringJPABootstrap implements ApplicationListener<ContextRefreshedE
 
   private void loadProducts() throws IOException {
     List<Product> productList = JsonUtils.convertJsonToProductPojo(ProductService.PRODUCTS_JSON_FILE);
-    productList.forEach(p -> productService.saveOrUpdate(p));
+    productList.forEach(productService::saveOrUpdate);
   }
 
   private void loadUserAndCustomers() throws IOException {
     List<User> userList = JsonUtils.convertJsonToUserPojo(UserService.USERS_JSON_FILE);
-    userList.forEach(u -> userService.saveOrUpdate(u));
+    userList.forEach(userService::saveOrUpdate);
   }
 }

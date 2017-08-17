@@ -1,5 +1,6 @@
 package io.prajesh.service.impl.dao;
 
+import io.prajesh.constants.ProfileConfig;
 import io.prajesh.domain.security.Role;
 import io.prajesh.service.RoleService;
 import org.springframework.context.annotation.Profile;
@@ -13,7 +14,7 @@ import java.util.List;
  *         Created on 15/8/2017.
  */
 @Service
-@Profile(AbstractDaoService.JPA_DAO)
+@Profile(ProfileConfig.JPA_DAO)
 public class RoleServiceDao extends AbstractDaoService implements RoleService {
 
   @Override

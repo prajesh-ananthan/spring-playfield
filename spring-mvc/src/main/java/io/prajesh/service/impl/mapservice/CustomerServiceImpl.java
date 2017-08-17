@@ -1,5 +1,6 @@
 package io.prajesh.service.impl.mapservice;
 
+import io.prajesh.constants.ProfileConfig;
 import io.prajesh.domain.DomainObject;
 import io.prajesh.domain.Customer;
 import io.prajesh.service.CustomerService;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
  *         Created on 23/7/2017.
  */
 @Service
-@Profile("map")
+@Profile(ProfileConfig.MAP)
 public class CustomerServiceImpl extends AbstractMapService implements CustomerService {
 
   public CustomerServiceImpl() throws IOException {

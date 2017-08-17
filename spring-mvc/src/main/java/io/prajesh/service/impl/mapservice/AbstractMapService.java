@@ -14,7 +14,6 @@ import java.util.Map;
  *         Created on 24/7/2017.
  */
 public abstract class AbstractMapService {
-  public static final String MAP_PROFILE = "map";
   protected Map<Integer, DomainObject> domainMap;
 
   protected AbstractMapService() throws IOException {

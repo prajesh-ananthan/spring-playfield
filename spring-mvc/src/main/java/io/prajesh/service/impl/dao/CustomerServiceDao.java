@@ -1,5 +1,6 @@
 package io.prajesh.service.impl.dao;
 
+import io.prajesh.constants.ProfileConfig;
 import io.prajesh.domain.Customer;
 import io.prajesh.service.CustomerService;
 import io.prajesh.service.security.EncryptionService;
@@ -16,7 +17,7 @@ import java.util.List;
  * @author Prajesh Ananthan, arvato Systems Malaysia Sdn Bhd
  */
 @Service
-@Profile(AbstractDaoService.JPA_DAO)
+@Profile(ProfileConfig.JPA_DAO)
 public class CustomerServiceDao extends AbstractDaoService implements CustomerService {
 
   EncryptionService encryptionService;

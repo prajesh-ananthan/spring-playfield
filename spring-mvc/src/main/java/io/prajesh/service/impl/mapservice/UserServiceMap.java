@@ -1,5 +1,6 @@
 package io.prajesh.service.impl.mapservice;
 
+import io.prajesh.constants.ProfileConfig;
 import io.prajesh.domain.DomainObject;
 import io.prajesh.domain.User;
 import io.prajesh.service.UserService;
@@ -14,7 +15,7 @@ import java.util.List;
  *         Created on 30/7/2017.
  */
 @Service
-@Profile(AbstractMapService.MAP_PROFILE)
+@Profile(ProfileConfig.MAP)
 public class UserServiceMap extends AbstractMapService implements UserService {
 
   protected UserServiceMap() throws IOException {
