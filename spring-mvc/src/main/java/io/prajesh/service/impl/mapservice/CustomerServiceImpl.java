@@ -1,10 +1,13 @@
 package io.prajesh.service.impl.mapservice;
 
+import io.prajesh.commands.CustomerForm;
 import io.prajesh.constants.ProfileConfig;
-import io.prajesh.domain.DomainObject;
+import io.prajesh.converters.CustomerFormToCustomer;
 import io.prajesh.domain.Customer;
+import io.prajesh.domain.DomainObject;
 import io.prajesh.service.CustomerService;
 import io.prajesh.util.JsonUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +23,14 @@ import java.util.stream.Collectors;
 @Profile(ProfileConfig.MAP)
 public class CustomerServiceImpl extends AbstractMapService implements CustomerService {
 
+  private CustomerFormToCustomer customerFormToCustomer;
+
   public CustomerServiceImpl() throws IOException {
+  }
+
+  @Autowired
+  public void setCustomerFormToCustomer(CustomerFormToCustomer customerFormToCustomer) {
+    this.customerFormToCustomer = customerFormToCustomer;
   }
 
   @Override
@@ -47,5 +57,15 @@ public class CustomerServiceImpl extends AbstractMapService implements CustomerS
   @Override
   public void remove(Integer id) {
     super.delete(id);
+  }
+
+  @Override
+  public Customer saveOrUpdateCustomerForm(CustomerForm customerForm) {
+    Customer newCustomer = customerFormToCustomer.convert(customerForm);
+    if (newCustomer.getUser().getId() != null) {
+      Customer existingCustomer = findById(newCustomer.getId());
+      newCustomer.getUser().setEnabled(existingCustomer.getUser().getEnabled());
+    }
+    return newCustomer;
   }
 }

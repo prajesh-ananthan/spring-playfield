@@ -1,6 +1,8 @@
 package io.prajesh.service.impl.reposervice;
 
+import io.prajesh.commands.CustomerForm;
 import io.prajesh.constants.ProfileConfig;
+import io.prajesh.converters.CustomerFormToCustomer;
 import io.prajesh.domain.Customer;
 import io.prajesh.repositories.CustomerRepository;
 import io.prajesh.service.CustomerService;
@@ -20,10 +22,16 @@ import java.util.List;
 public class CustomerServiceRepoImpl implements CustomerService {
 
   private CustomerRepository customerRepository;
+  private CustomerFormToCustomer customerFormToCustomer;
 
   @Autowired
   public void setCustomerRepository(CustomerRepository customerRepository) {
     this.customerRepository = customerRepository;
+  }
+
+  @Autowired
+  public void setCustomerFormToCustomer(CustomerFormToCustomer customerFormToCustomer) {
+    this.customerFormToCustomer = customerFormToCustomer;
   }
 
   @Override
@@ -46,5 +54,15 @@ public class CustomerServiceRepoImpl implements CustomerService {
   @Override
   public void remove(Integer id) {
     customerRepository.delete(id);
+  }
+
+  @Override
+  public Customer saveOrUpdateCustomerForm(CustomerForm customerForm) {
+    Customer newCustomer = customerFormToCustomer.convert(customerForm);
+    if (newCustomer.getUser().getId() != null) {
+      Customer existingCustomer = findById(newCustomer.getId());
+      newCustomer.getUser().setEnabled(existingCustomer.getUser().getEnabled());
+    }
+    return customerRepository.save(newCustomer);
   }
 }

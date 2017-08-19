@@ -1,7 +1,9 @@
 package io.prajesh.controller;
 
 import com.google.common.annotations.VisibleForTesting;
+import io.prajesh.commands.CustomerForm;
 import io.prajesh.domain.Customer;
+import io.prajesh.helper.SpringJPAHelper;
 import io.prajesh.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -58,14 +60,15 @@ public class CustomerController {
 
   @GetMapping("/new")
   public String createNewCustomer(Model model) {
-    model.addAttribute(CUSTOMER, new Customer());
+    model.addAttribute(CUSTOMER, new CustomerForm());
     return CUSTOMER_FORM;
   }
 
   @GetMapping("/edit/{id}")
   public String edit(@PathVariable Integer id, Model model) {
     Customer customer = customerService.findById(id);
-    model.addAttribute(CUSTOMER, customer);
+    CustomerForm customerForm = SpringJPAHelper.convertCustomerToCustomerForm(customer);
+    model.addAttribute(CUSTOMER, customerForm);
     return CUSTOMER_FORM;
   }
 
@@ -76,8 +79,8 @@ public class CustomerController {
   }
 
   @PostMapping
-  public String createOrUpdateCustomer(Customer customer) {
-    Customer savedCustomer = customerService.saveOrUpdate(customer);
+  public String createOrUpdateCustomer(CustomerForm customerForm) {
+    Customer savedCustomer = customerService.saveOrUpdateCustomerForm(customerForm);
     return REDIRECT_CUSTOMER_PAGE + savedCustomer.getId();
   }
 }

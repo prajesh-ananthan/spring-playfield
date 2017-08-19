@@ -1,6 +1,8 @@
 package io.prajesh.service.impl.dao;
 
+import io.prajesh.commands.CustomerForm;
 import io.prajesh.constants.ProfileConfig;
+import io.prajesh.converters.CustomerFormToCustomer;
 import io.prajesh.domain.Customer;
 import io.prajesh.service.CustomerService;
 import io.prajesh.service.security.EncryptionService;
@@ -20,11 +22,17 @@ import java.util.List;
 @Profile(ProfileConfig.JPA_DAO)
 public class CustomerServiceDao extends AbstractDaoService implements CustomerService {
 
-  EncryptionService encryptionService;
+  private EncryptionService encryptionService;
+  private CustomerFormToCustomer customerFormToCustomer;
 
   @Autowired
   public void setEncryptionService(EncryptionService encryptionService) {
     this.encryptionService = encryptionService;
+  }
+
+  @Autowired
+  public void setCustomerFormToCustomer(CustomerFormToCustomer customerFormToCustomer) {
+    this.customerFormToCustomer = customerFormToCustomer;
   }
 
   @Override
@@ -62,5 +70,15 @@ public class CustomerServiceDao extends AbstractDaoService implements CustomerSe
     Customer deleteCustomer = em.find(Customer.class, id);
     em.remove(deleteCustomer);
     em.getTransaction().commit();
+  }
+
+  @Override
+  public Customer saveOrUpdateCustomerForm(CustomerForm customerForm) {
+    Customer newCustomer = customerFormToCustomer.convert(customerForm);
+    if (newCustomer.getUser().getId() != null) {
+      Customer existingCustomer = findById(newCustomer.getId());
+      newCustomer.getUser().setEnabled(existingCustomer.getUser().getEnabled());
+    }
+    return newCustomer;
   }
 }
