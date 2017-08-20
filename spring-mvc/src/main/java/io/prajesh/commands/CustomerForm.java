@@ -1,5 +1,10 @@
 package io.prajesh.commands;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.Size;
+
 /**
  * @author Prajesh Ananthan
  *         Created on 18/8/2017.
@@ -10,11 +15,15 @@ public class CustomerForm {
   private Integer userVersion;
   private Integer customerId;
   private Integer customerVersion;
+  @NotEmpty
+  @Size(min = 2, max = 75)
   private String userName;
   private String passwordText;
   private String passwordTextConfirm;
   private String firstName;
   private String lastName;
+  @NotEmpty
+  @Email
   private String email;
   private String phoneNumber;
 
