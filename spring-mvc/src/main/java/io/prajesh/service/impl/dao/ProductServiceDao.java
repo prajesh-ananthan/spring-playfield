@@ -1,5 +1,6 @@
 package io.prajesh.service.impl.dao;
 
+import io.prajesh.commands.ProductForm;
 import io.prajesh.domain.Product;
 import io.prajesh.constants.ProfileConfig;
 import io.prajesh.service.ProductService;
@@ -46,5 +47,10 @@ public class ProductServiceDao extends AbstractDaoService implements ProductServ
     Product deleteProduct = em.find(Product.class, id);
     em.remove(deleteProduct);
     em.getTransaction().commit();
+  }
+
+  @Override
+  public Product saveOrUpdateProductForm(ProductForm productForm) {
+    return null;
   }
 }

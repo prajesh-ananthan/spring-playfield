@@ -1,5 +1,6 @@
 package io.prajesh.service;
 
+import io.prajesh.commands.ProductForm;
 import io.prajesh.domain.Product;
 import org.springframework.stereotype.Service;
 
@@ -10,4 +11,6 @@ import org.springframework.stereotype.Service;
 @Service
 public interface ProductService extends CRUDService<Product> {
   String PRODUCTS_JSON_FILE = "json/products.json";
+
+  Product saveOrUpdateProductForm(ProductForm productForm);
 }

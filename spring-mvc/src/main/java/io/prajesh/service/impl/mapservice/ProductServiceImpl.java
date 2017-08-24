@@ -1,5 +1,6 @@
 package io.prajesh.service.impl.mapservice;
 
+import io.prajesh.commands.ProductForm;
 import io.prajesh.constants.ProfileConfig;
 import io.prajesh.domain.Product;
 import io.prajesh.service.ProductService;
@@ -46,5 +47,10 @@ public class ProductServiceImpl extends AbstractMapService implements ProductSer
   @Override
   public void remove(Integer id) {
     super.delete(id);
+  }
+
+  @Override
+  public Product saveOrUpdateProductForm(ProductForm productForm) {
+    return null;
   }
 }

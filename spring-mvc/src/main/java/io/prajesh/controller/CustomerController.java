@@ -2,6 +2,7 @@ package io.prajesh.controller;
 
 import com.google.common.annotations.VisibleForTesting;
 import io.prajesh.commands.CustomerForm;
+import io.prajesh.commands.validators.CustomerFormValidator;
 import io.prajesh.domain.Customer;
 import io.prajesh.helper.SpringJPAHelper;
 import io.prajesh.service.CustomerService;
@@ -41,10 +42,16 @@ public class CustomerController {
   private static final String CUSTOMER_FORM_PAGE = CUSTOMER + "/customer-form";
   private static final String CUSTOMER_FORM = "customerForm";
   private CustomerService customerService;
+  private CustomerFormValidator customerFormValidator;
 
   @Autowired
   public void setCustomerService(CustomerService customerService) {
     this.customerService = customerService;
+  }
+
+  @Autowired
+  public void setCustomerFormValidator(CustomerFormValidator customerFormValidator) {
+    this.customerFormValidator = customerFormValidator;
   }
 
   @GetMapping(value = "/list")
@@ -83,6 +90,9 @@ public class CustomerController {
 
   @PostMapping
   public String saveOrUpdate(@Valid CustomerForm customerForm, BindingResult bindingResult) {
+
+    // Password validation
+    customerFormValidator.validate(customerForm, bindingResult);
 
     if (bindingResult.hasErrors()) {
       return CUSTOMER_FORM_PAGE;

@@ -1,6 +1,8 @@
 package io.prajesh.service.impl.reposervice;
 
+import io.prajesh.commands.ProductForm;
 import io.prajesh.constants.ProfileConfig;
+import io.prajesh.converters.ProductFormToProduct;
 import io.prajesh.domain.Product;
 import io.prajesh.repositories.ProductRepository;
 import io.prajesh.service.ProductService;
@@ -20,10 +22,16 @@ import java.util.List;
 public class ProductServiceRepoImpl implements ProductService {
 
   ProductRepository productRepository;
+  ProductFormToProduct productFormToProduct;
 
   @Autowired
   public void setProductRepository(ProductRepository productRepository) {
     this.productRepository = productRepository;
+  }
+
+  @Autowired
+  public void setProductFormToProduct(ProductFormToProduct productFormToProduct) {
+    this.productFormToProduct = productFormToProduct;
   }
 
   @Override
@@ -47,5 +55,11 @@ public class ProductServiceRepoImpl implements ProductService {
   @Override
   public void remove(Integer id) {
     productRepository.delete(id);
+  }
+
+  @Override
+  public Product saveOrUpdateProductForm(ProductForm productForm) {
+    Product product = productFormToProduct.convert(productForm);
+    return productRepository.save(product);
   }
 }
