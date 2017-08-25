@@ -32,7 +32,7 @@ public class SpringSecurityUserDetailsService implements UserDetailsService {
   }
 
   @Override
-  public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-    return userUserDetailsConverter.convert(userService.findUserByUserName(userName));
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    return userUserDetailsConverter.convert(userService.findUserByUserName(username));
   }
 }
