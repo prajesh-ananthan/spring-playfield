@@ -60,4 +60,9 @@ public class UserServiceDao extends AbstractDaoService implements UserService {
     em.remove(user);
     em.getTransaction().commit();
   }
+
+  @Override
+  public User findUserByUserName(String userName) {
+    return null;
+  }
 }

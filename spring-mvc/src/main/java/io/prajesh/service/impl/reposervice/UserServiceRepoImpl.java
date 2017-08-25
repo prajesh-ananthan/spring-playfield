@@ -18,7 +18,7 @@ import java.util.List;
 @Service
 @Profile(ProfileConfig.SPRING_DATA_JPA)
 public class UserServiceRepoImpl implements UserService {
-  UserRepository userRepository;
+  private UserRepository userRepository;
 
   @Autowired
   public void setUserRepository(UserRepository userRepository) {
@@ -45,5 +45,10 @@ public class UserServiceRepoImpl implements UserService {
   @Override
   public void remove(Integer id) {
     userRepository.delete(id);
+  }
+
+  @Override
+  public User findUserByUserName(String userName) {
+    return userRepository.findByUserName(userName);
   }
 }

@@ -45,4 +45,9 @@ public class UserServiceMap extends AbstractMapService implements UserService {
   protected void loadDomainObjectsFromJSON() throws IOException {
 
   }
+
+  @Override
+  public User findUserByUserName(String userName) {
+    return null;
+  }
 }
