@@ -4,9 +4,11 @@ import io.prajesh.constants.ProfileConfig;
 import io.prajesh.domain.User;
 import io.prajesh.repositories.UserRepository;
 import io.prajesh.service.UserService;
+import io.prajesh.service.security.EncryptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,10 +21,16 @@ import java.util.List;
 @Profile(ProfileConfig.SPRING_DATA_JPA)
 public class UserServiceRepoImpl implements UserService {
   private UserRepository userRepository;
+  private EncryptionService encryptionService;
 
   @Autowired
   public void setUserRepository(UserRepository userRepository) {
     this.userRepository = userRepository;
+  }
+
+  @Autowired
+  public void setEncryptionService(EncryptionService encryptionService) {
+    this.encryptionService = encryptionService;
   }
 
   @Override
@@ -39,6 +47,11 @@ public class UserServiceRepoImpl implements UserService {
 
   @Override
   public User saveOrUpdate(User domainObject) {
+    // Store encrypted password in the database
+    if (!StringUtils.isEmpty(domainObject.getPassword())) {
+      domainObject.setEncryptedPassword(encryptionService.encryptString(domainObject.getPassword()));
+    }
+
     return userRepository.save(domainObject);
   }
 
@@ -48,7 +61,7 @@ public class UserServiceRepoImpl implements UserService {
   }
 
   @Override
-  public User findUserByUserName(String userName) {
-    return userRepository.findByUserName(userName);
+  public User findUserByUserName(String username) {
+    return userRepository.findByUserName(username);
   }
 }

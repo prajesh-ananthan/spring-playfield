@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends CrudRepository<User, Integer> {
   // Spring Data JPA is going to create the query for us
-  User findByUserName(String userName);
+  User findByUserName(String username);
 }

@@ -6,6 +6,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,16 +23,17 @@ public class UserToUserDetails implements Converter<User, UserDetails> {
   public UserDetails convert(User user) {
     UserDetailsImpl userDetails = new UserDetailsImpl();
 
-    userDetails.setUsername(user.getUserName());
-    userDetails.setPassword(user.getPassword());
-    userDetails.setEnabled(user.getEnabled());
+    if (!ObjectUtils.isEmpty(user)) {
+      userDetails.setUsername(user.getUserName());
+      userDetails.setPassword(user.getEncryptedPassword());
+      userDetails.setEnabled(user.getEnabled());
 
-    Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+      Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
 
-    user.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getRole())));
+      user.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getRole())));
 
-    userDetails.setAuthorities(authorities);
-
+      userDetails.setAuthorities(authorities);
+    }
     return userDetails;
   }
 }

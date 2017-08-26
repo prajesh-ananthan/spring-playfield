@@ -54,8 +54,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
   // Securing URLs with Spring Security
   // Prevents user from accessing unauthorized page to login page
   protected void configure(HttpSecurity http) throws Exception {
-    http.csrf().ignoringAntMatchers("/h2-console").disable()
-        .authorizeRequests().antMatchers("/**/favicon.ico").permitAll()
+    http.csrf().ignoringAntMatchers("/console").disable()
+        .headers().frameOptions().sameOrigin()
+        .and().authorizeRequests().antMatchers("/**/favicon.ico").permitAll()
         .and().authorizeRequests().antMatchers("/product/**").permitAll()
         .and().authorizeRequests().antMatchers("/webjars/**").permitAll()
         .and().authorizeRequests().antMatchers("/static/css").permitAll()

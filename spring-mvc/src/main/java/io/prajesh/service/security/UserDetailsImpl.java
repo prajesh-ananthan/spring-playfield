@@ -19,7 +19,7 @@ public class UserDetailsImpl implements UserDetails {
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return null;
+    return authorities;
   }
 
   public void setAuthorities(Collection<SimpleGrantedAuthority> authorities) {
@@ -28,7 +28,7 @@ public class UserDetailsImpl implements UserDetails {
 
   @Override
   public String getPassword() {
-    return null;
+    return password;
   }
 
   public void setPassword(String password) {
@@ -37,7 +37,7 @@ public class UserDetailsImpl implements UserDetails {
 
   @Override
   public String getUsername() {
-    return null;
+    return username;
   }
 
   public void setUsername(String username) {
@@ -46,22 +46,22 @@ public class UserDetailsImpl implements UserDetails {
 
   @Override
   public boolean isAccountNonExpired() {
-    return false;
+    return true;
   }
 
   @Override
   public boolean isAccountNonLocked() {
-    return false;
+    return true;
   }
 
   @Override
   public boolean isCredentialsNonExpired() {
-    return false;
+    return true;
   }
 
   @Override
   public boolean isEnabled() {
-    return false;
+    return enabled;
   }
 
   public void setEnabled(Boolean enabled) {
