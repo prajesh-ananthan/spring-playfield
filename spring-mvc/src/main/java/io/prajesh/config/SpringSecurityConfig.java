@@ -1,5 +1,6 @@
 package io.prajesh.config;
 
+import io.prajesh.service.UserService;
 import org.jasypt.springsecurity3.authentication.encoding.PasswordEncoder;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +64,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         .and().authorizeRequests().antMatchers("/js").permitAll()
         .and().formLogin().loginPage("/login").permitAll()
         .and().authorizeRequests().antMatchers("/customer/**").authenticated()
-        .and().authorizeRequests().antMatchers("/user/**").authenticated()
+        .and().authorizeRequests().antMatchers("/user/**").hasAuthority(UserService.ADMIN)
         .and().exceptionHandling().accessDeniedPage("/access_denied");
   }
 }

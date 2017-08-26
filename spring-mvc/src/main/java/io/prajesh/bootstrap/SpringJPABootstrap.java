@@ -70,6 +70,7 @@ public class SpringJPABootstrap implements ApplicationListener<ContextRefreshedE
         loadOrderHistory();
         loadRoles();
         applyDefaultRolesOnUsers();
+        assignUserToAdminRole();
       } catch (IOException e) {
         LOG.error("Unable to open JSON file: ", e.getMessage());
       }
@@ -77,9 +78,13 @@ public class SpringJPABootstrap implements ApplicationListener<ContextRefreshedE
   }
 
   private void loadRoles() {
-    Role role = new Role();
-    role.setRole(CustomerService.CUSTOMER);
-    roleService.saveOrUpdate(role);
+    Role customerRole = new Role();
+    customerRole.setRole(CustomerService.CUSTOMER);
+    roleService.saveOrUpdate(customerRole);
+
+    Role adminRole = new Role();
+    adminRole.setRole(UserService.ADMIN);
+    roleService.saveOrUpdate(adminRole);
   }
 
   private void applyDefaultRolesOnUsers() {
@@ -93,6 +98,26 @@ public class SpringJPABootstrap implements ApplicationListener<ContextRefreshedE
                 user -> {
                   user.addRole(role);
                   userService.saveOrUpdate(user);
+                }
+            );
+          }
+        }
+    );
+  }
+
+  private void assignUserToAdminRole() {
+    final List<User> users = (List<User>) userService.list();
+    final List<Role> roles = (List<Role>) roleService.list();
+
+    roles.forEach(
+        role -> {
+          if (role.getRole().equalsIgnoreCase(UserService.ADMIN)) {
+            users.forEach(
+                user -> {
+                  if (user.getUserName().equalsIgnoreCase("pjesh")) {
+                    user.addRole(role);
+                    userService.saveOrUpdate(user);
+                  }
                 }
             );
           }
